@@ -7,12 +7,9 @@ import './style.css';
 const Join = () => {
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-
   }
 
   const { register, handleSubmit, watch, errors } = useForm();
-
-  console.log('errors', errors)
 
   return (
     <section className='join-event-page m-xl-5'>
