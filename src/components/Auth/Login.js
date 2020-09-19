@@ -7,6 +7,9 @@ import firebase from 'firebase';
 import { AuthContext } from '../../Auth';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
+/* Event Handler*/
+import { addUser } from '../../backend/User/User';
+
 const Login = ({ history }) => {
 	const { currentUser, setCurrentUser } = useContext(AuthContext);
 
@@ -19,14 +22,14 @@ const Login = ({ history }) => {
 		]
 	};
 
-	useEffect(
-		() => {
-			firebase.auth().onAuthStateChanged((user) => {
+	useEffect(() => {
+		firebase.auth().onAuthStateChanged((user) => {
+			if (user) {
+				addUser(user.uid, user.email, user.displayName);
 				setCurrentUser(user);
-			});
-		},
-		[ setCurrentUser ]
-	);
+			}
+		});
+	}, []);
 
 	if (currentUser) {
 		return <Redirect to="/" />;

@@ -1,51 +1,90 @@
 import React, { useState } from 'react';
-import { Navbar, Container, Row, Col, ListGroup } from 'react-bootstrap';
+import { Navbar, Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import faker from 'faker'
 import { brotliCompress } from 'zlib';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import './index.css'
 
+// Drawer/HAMBURGER menu
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import DrawerButton from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
-// Testing purposes
-const list = [1, 2, 3];
-
-class GroupList extends React.Component {
-  render() {
-    var names = this.props.teamNames;
-          var namesList = names.map(function(name){
-                          return <Team name={name} />;
-                        })
-
-          return (
-            <div>
-              <ul>{ namesList }</ul>
-            </div>
-          );
-  }
-}
-
-class Team extends React.Component {
-  render() {
-    return(
-      <Container>
-        <div className="rounded-pill border border-dark">
-        <Row>
-            <Col>{this.props.name} - 3/4</Col>       
-        </Row>
-        <Row>
-            <Col><p>We are the best team around. Plain and simple.</p></Col>
-        </Row>
-        </div>
-        <br />
-      </Container>
-    );
-  }
-}
 
 const TeamList = () => {
 
+  // Hamburger
+  const useStyles = makeStyles({
+    list: {
+      width: 250,
+    },
+    fullList: {
+      width: 'auto',
+    },
+  });
+
+  const [anchor, setAnchor] = useState(false);
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setAnchor(open);
+  };
+
+  const classes = makeStyles({
+    list: {
+      width: 550,
+    },
+    fullList: {
+      width: 'auto',
+    },
+  });
+
+  const list = (anchor) => (
+    
+    <div
+      className="dr"
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+    
+    <List>
+      <h2 className="text-center">Lobby</h2>
+      <br />
+      <h3>Current Events:</h3>
+        <ul>
+          <li>Standford Hacks 2020</li>
+          <li>Cake Cooking Competition</li>
+          <li>FizzBuzz Showdown</li>
+        </ul>
+        <hr/>
+        <p><FontAwesomeIcon icon="cog" /> Settings</p>
+        <p><FontAwesomeIcon icon="sign-out-alt" /> Sign Out</p>
+
+    </List>
+    
+    
+    </div>
+    
+  );
+
+
+  // ^^^^^^^^^^^^^
+
+
   const data = new Array(1000).fill().map((value, id) => (({
     id: id,
-    title: faker.lorem.words(5),
+    title: faker.name.firstName(),
     body: faker.lorem.sentences(8)
   })))
 
@@ -68,12 +107,20 @@ const TeamList = () => {
   }
 
   return (
+    
     <div>
-      <Navbar className="justify-content-md-center" expand="lg" variant="light" bg="light">
-        <Navbar.Brand href="/event">Event Name</Navbar.Brand>
+      <Navbar className="" expand="lg" variant="light" bg="light">
+        <FontAwesomeIcon onClick={toggleDrawer("left", true)} className="" icon="hamburger" />
+        <Navbar.Brand className="mx-auto" href="/event">Event Name</Navbar.Brand>
       </Navbar>
-
+     
       <h3 className="text-center"> Team List </h3>
+      
+      <React.Fragment key="left">
+        <Drawer anchor="Mhhhm Hamburger" open={anchor} onClose={toggleDrawer("left", false)}>
+          {list(anchor)}
+        </Drawer>
+      </React.Fragment>
 
       <InfiniteScroll
         dataLength={current.length}
@@ -84,9 +131,16 @@ const TeamList = () => {
       
         <ListGroup variant="flush">
           {current && current.map(((item, index) => (
-            <ListGroup.Item key={index} className="post rounded-pill border border-dark">
-              <h3>{`${item.title}-${item.id}`}</h3>
-              <p>{item.body}</p>
+            <ListGroup.Item key={index} className="mt-3 post">
+              <Row className="align-items-center">
+                <Col sm={10}><h3>{`${item.title}`}</h3>
+                <p>{item.body}</p>
+                </Col>
+                <Col sm={2}>
+                  <h4>3/4</h4>
+                  <Button size="lg" variant="outline-primary">Join <FontAwesomeIcon icon="arrow-right" /></Button>
+                </Col>
+              </Row>
             </ListGroup.Item>
           )))
           }
@@ -95,24 +149,7 @@ const TeamList = () => {
     </div>
   );
 }
+
+
   
-/*
-    return (
-      <div>
-        <Navbar className="justify-content-md-center" expand="lg" variant="light" bg="light">
-          <Navbar.Brand href="/event">Event Name</Navbar.Brand>
-        </Navbar>
-
-        <div className="justify-content-md-center">
-          <h1 className="text-center">Team List</h1>
-          
-          <button> Add Team </button>
-          
-        </div>  
-
-      </div>
-
-    );
-  }
-*/
 export default TeamList;
