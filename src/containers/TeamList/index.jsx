@@ -108,13 +108,13 @@ const TeamList = () => {
     <div>
       <Navbar className="" expand="lg" variant="light" bg="light">
         <FontAwesomeIcon onClick={toggleDrawer("left", true)} className="" icon="hamburger" />
-        <Navbar.Brand className="mx-auto" href="/event">Event Name</Navbar.Brand>
+        <Navbar.Brand className="mx-auto" href="/event">HackMIT2020</Navbar.Brand>
       </Navbar>
-     
-      <h3 className="text-center"> Team List </h3>
+      <br />
+      <h3 className="text-center">Find your Team:</h3>
       
       <React.Fragment key="left">
-        <Drawer anchor="Mhhhm Hamburger" open={anchor} onClose={toggleDrawer("left", false)}>
+        <Drawer anchor="left" open={anchor} onClose={toggleDrawer("left", false)}>
           {list(anchor)}
         </Drawer>
       </React.Fragment>
