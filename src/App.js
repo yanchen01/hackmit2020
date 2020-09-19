@@ -11,6 +11,10 @@ import SignUp from './components/Auth/SignUp';
 /* Import Auth */
 import { AuthProvider } from './Auth';
 import PrivateRoute from './PrivateRoute';
+import CreateEvent from "./containers/CreateEvent";
+import CreateTeam from "./containers/CreateTeam";
+import Join from "./containers/Join";
+import TeamList from "./containers/TeamList";
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyD-w8z8ollWZttoETyFL7Zkk-FVnhZoKdw',
@@ -32,6 +36,10 @@ const App = () => {
 					<Route exact path="/login" component={Login} />
 					<PrivateRoute exact path="/" component={Home} />
 					<Route exact path="/signup" component={SignUp} />
+					<Route exact path="/createevent" component={CreateEvent} />
+					<Route exact path="/createteam" component={CreateTeam} />
+					<Route exact path="/join" component={Join} />
+					<Route exact path="/teamlist" component={TeamList} />
 				</div>
 			</Router>
 		</AuthProvider>
