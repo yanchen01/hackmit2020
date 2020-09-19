@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   InputGroup,
   Row,
@@ -11,16 +11,34 @@ import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Chip } from "@material-ui/core";
+import { Typeahead } from "react-bootstrap-typeahead";
+import _ from "lodash";
+
+import "react-bootstrap-typeahead/css/Typeahead.css";
+
+import { generateName } from "../../helpers/name";
 
 const TAGS = ["AI", "Community/Connectivity"];
 
 const CreateTeam = () => {
+  const [tags, setTags] = useState(TAGS);
   const onSubmit = (data) => {};
 
   const { register, handleSubmit, watch, errors } = useForm();
 
   // temp
   const MAX_MEMBERS = 4;
+
+  const onDeleteTag = (tag) => {
+    let currentTags = [...tags];
+    if (currentTags.includes(tag)) {
+      currentTags = currentTags.filter((e) => e !== tag);
+    }
+    setTags(currentTags);
+  };
+
+  const typeaheadRef = useRef(null);
 
   return (
     <section className="create-event-page m-xl-5">
@@ -33,7 +51,7 @@ const CreateTeam = () => {
             <FormControl
               name="team"
               ref={register({ min: 1, required: true, maxLength: 25 })}
-              placeholder="Team1"
+              placeholder={generateName()}
               aria-label="team"
               aria-describedby="basic-addon1"
             />
@@ -83,11 +101,25 @@ const CreateTeam = () => {
         </div>
 
         <div className="mt-lg-3 mb-lg-3">
-          {TAGS.map((e, i) => (
-            <div key={`${e}-${i}`} className="chip">
-              {e}
-              <FontAwesomeIcon icon="times" />
-            </div>
+          <label>Add tags</label>
+          <Typeahead
+            id="tags-select"
+            dropup
+            options={["ML", "Health care", "Urban Innovation", "React", "React Native", "iOS", "Android"]}
+            onChange={() => {}}
+            ref={typeaheadRef}
+          />
+        </div>
+
+        <div className="mt-lg-3 mb-lg-3">
+          {tags.map((e, i) => (
+            <Chip
+              className="mr-2"
+              label={e}
+              key={`${e}-${i}`}
+              variant="outlined"
+              onDelete={() => onDeleteTag(e)}
+            />
           ))}
         </div>
 
