@@ -45,19 +45,21 @@ const CreateTeam = () => {
   const typeaheadRef = useRef();
 
   const onAddTag = (tag) => {
-    if (tag[0].length > 30) {
-      enqueueSnackbar("Tag must be shorter!", {
-        variant: "error",
-        onClick: () => closeSnackbar(),
-      });
-    }
-    if (tag[0].length > 0 && tags.length < 10 && tag[0].length < 30) {
-      let currentTags = [...tags];
-      const doesHaveTag = currentTags.includes(tag[0]);
-      if (!doesHaveTag) {
-        currentTags = [...tags, ...tag];
-        setTags(currentTags);
-        typeaheadRef.current.clear();
+    if (tag[0]) {
+      if (tag[0].length > 30) {
+        enqueueSnackbar("Tag must be shorter!", {
+          variant: "error",
+          onClick: () => closeSnackbar(),
+        });
+      }
+      if (tag[0].length > 0 && tags.length < 10 && tag[0].length < 30) {
+        let currentTags = [...tags];
+        const doesHaveTag = currentTags.includes(tag[0]);
+        if (!doesHaveTag) {
+          currentTags = [...tags, ...tag];
+          setTags(currentTags);
+          typeaheadRef.current.clear();
+        }
       }
     }
   };
