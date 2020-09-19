@@ -12,20 +12,18 @@ const SignUp = ({ history }) => {
 					.auth()
 					.createUserWithEmailAndPassword(email.value, password.value)
 					.then((res) => {
-						const uid = res.user.id;
-						console.log(uid);
+						const uid = res.user.uid;
 						const data = {
 							id: uid,
 							email: email.value,
-							fullName
+							fullName: fullName.value
 						};
-
 						const userRef = firebase.firestore().collection('users');
 
 						userRef
 							.doc(uid)
 							.set(data)
-							.then(() => {
+							.then((res) => {
 								return <Redirect to="/" />;
 							})
 							.catch((err) => {
