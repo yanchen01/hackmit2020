@@ -14,7 +14,7 @@ import List from '@material-ui/core/List';
 const TeamList = () => {
 
   // Hamburger
-  function MyVerticallyCenteredModal(props) {
+  function EventModal(props) {
     return (
       <Modal
         {...props}
@@ -22,16 +22,15 @@ const TeamList = () => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Welcome to HackMIT 2020!
-          </Modal.Title>
-        </Modal.Header>
         <Modal.Body>
-          <h4>Connect with us on:</h4>
+          <p><h3>Welcome to {props.eventName}!</h3></p>
+          <p>{props.description}</p>
+          <h3> Conect With Us: </h3>
           <ul>
-            <li>Slack: <a>HackMIT 2020 Slack</a></li>
-            <li>Schedule: <a>Day of HackMIT 2020</a></li>
+            <li><a href={props.link}>{props.link}</a></li>
+            <li>Event Code: {props.eventCode}</li>
+            <li>Location: {props.location}</li>
+            <li>Category: {props.category}</li>
           </ul>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Body>
@@ -137,9 +136,17 @@ const TeamList = () => {
         <FontAwesomeIcon onClick={toggleDrawer("left", true)} className="" icon="hamburger" />
         <Navbar.Brand className="mx-auto" onClick={() => setModalShow(true)}>HackMIT2020</Navbar.Brand>
       </Navbar>
-      <MyVerticallyCenteredModal
+      <EventModal
         show={modalShow}
         onHide={() => setModalShow(false)}
+        eventName="HackMIT 2020"
+        description={faker.lorem.words(20)}
+        link="https://hackmit.org/"
+        eventCode="HackWithUs"
+        location="The World Wide Web"
+        category="GeekSquad"
+        eventStart="9/18"
+        eventEnd="9/21"
       />
       <br />
       <h3 className="text-center">Find your Team:</h3>
