@@ -83,7 +83,7 @@ const Profile = () => {
     <div>
         <Navbar className="" expand="lg" variant="light" bg="light">
                 <FontAwesomeIcon onClick={toggleDrawer("left", true)} className="" icon="hamburger" />
-                <Navbar.Brand className="mx-auto" href="/event">HackMIT2020</Navbar.Brand>
+                <Navbar.Brand className="mx-auto">HackMIT2020</Navbar.Brand>
         </Navbar>
     <Container className="w-100 h-100">
       

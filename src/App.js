@@ -20,7 +20,6 @@ import { GlobalStyles, darkTheme } from "./styles";
 import Home from "./containers/Home/Home";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
-import Event from "./containers/Event/Event.jsx";
 import Profile from "./containers/Profile/Profile.jsx";
 import Settings from "./containers/Settings/Settings.jsx";
 
@@ -57,7 +56,6 @@ const App = () => {
               <PrivateRoute exact path="/" component={Home} />
               <PrivateRoute exact path="/home" component={Home} />
               <Route exact path="/signup" component={SignUp} />
-              <Route exact path="/event" component={Event} />
               <Route exact path="/createevent" component={CreateEvent} />
               <Route exact path="/createteam" component={CreateTeam} />
               <Route exact path="/join" component={Join} />
