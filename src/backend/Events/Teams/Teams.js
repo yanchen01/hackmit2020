@@ -93,4 +93,11 @@ const getAllTeamsInEvent = (eventId) =>
     })
     .catch((error) => console.log(error));
 
-export { createTeam, getAllTeamsInEvent };
+export {
+  createTeam,
+  getAllTeamsInEvent,
+  removeMemberFromTeam,
+  addMemberToTeam,
+  addApplicationToTeam,
+  updateTeam,
+};
