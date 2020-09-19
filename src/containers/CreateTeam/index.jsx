@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   InputGroup,
   Row,
@@ -12,20 +12,20 @@ import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Chip } from "@material-ui/core";
-import { Typeahead } from "react-bootstrap-typeahead";
+import { Chip, Snackbar } from "@material-ui/core";
+import { AsyncTypeahead, Typeahead } from "react-bootstrap-typeahead";
+import { useSnackbar, withSnackbar } from "notistack";
 import _ from "lodash";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
-
-import { generateName } from "../../helpers/name";
 
 const TAGS = ["AI", "Community/Connectivity"];
 
 const CreateTeam = () => {
   const [tags, setTags] = useState(TAGS);
-  const [tagToAdd, setTagToAdd] = useState("");
+  const [tagToAdd, setTagToAdd] = useState([]);
   const onSubmit = (data) => {};
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const { register, handleSubmit, watch, errors } = useForm();
 
@@ -43,13 +43,20 @@ const CreateTeam = () => {
   const typeaheadRef = useRef();
 
   const onAddTag = (tag) => {
-    if (tag.length > 0) {
+    if (tag[0].length > 30) {
+      enqueueSnackbar("Tag must be shorter!", {
+        variant: "error",
+        onClick: () => closeSnackbar(),
+      });
+    }
+    if (tag[0].length > 0 && tags.length < 10 && tag[0].length < 30) {
       let currentTags = [...tags];
-      if (!currentTags.includes(tag)) {
-        currentTags = [...tags, tag];
+      const doesHaveTag = currentTags.includes(tag[0]);
+      if (!doesHaveTag) {
+        currentTags = [...tags, ...tag];
+        setTags(currentTags);
+        typeaheadRef.current.clear();
       }
-      typeaheadRef.current.clear();
-      setTags(currentTags);
     }
   };
 
@@ -64,7 +71,7 @@ const CreateTeam = () => {
             <FormControl
               name="team"
               ref={register({ min: 1, required: true, maxLength: 25 })}
-              placeholder={generateName()}
+              placeholder="Your team"
               aria-label="team"
               aria-describedby="basic-addon1"
             />
@@ -115,9 +122,16 @@ const CreateTeam = () => {
 
         <div className="mt-lg-3 mb-lg-3">
           <label>Add tags</label>
-          <Typeahead
+          <AsyncTypeahead
+            clearButton
             id="tags-select"
             dropup
+            isLoading={false}
+            minLength={1}
+            onSearch={(e) => {
+              setTagToAdd([e]);
+            }}
+            onSubmit={() => onAddTag(tagToAdd)}
             options={[
               "ML",
               "Health care",
@@ -127,7 +141,9 @@ const CreateTeam = () => {
               "iOS",
               "Android",
             ]}
-            onChange={(e) => setTagToAdd(e)}
+            onChange={(e) => {
+              setTagToAdd(e);
+            }}
             ref={typeaheadRef}
           />
           <ButtonToolbar style={{ marginTop: "10px" }}>
@@ -158,6 +174,7 @@ const CreateTeam = () => {
           </Button>
         </div>
       </Container>
+      <Snackbar />
     </section>
   );
 };
