@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   InputGroup,
   Row,
@@ -6,12 +6,15 @@ import {
   Container,
   Button,
   FormGroup,
+  FormLabel,
+  ButtonToolbar,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import firebase from "firebase";
 import "./style.css";
 import "react-datepicker/dist/react-datepicker.css";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 const MAX_MEMBERS_PER_TEAM_OPTIONS = [
   "Let members choose up to max",
@@ -28,6 +31,11 @@ const CreateEvent = () => {
   initialEndDate.setDate(initialStartDate.getDate() + 1);
   const [eventStartDate, setEventStartDate] = useState(initialStartDate);
   const [eventEndDate, setEventEndDate] = useState(initialEndDate);
+  const [categorySingleSelection, setCategorySingleSelection] = useState([]);
+  const [location, setLocation] = useState({
+    coords: { latitude: undefined, longitude: undefined },
+  });
+
   const onSubmit = (data) => {
     const { eventCode, name, maxTeams, maxUsersPerTeam } = data;
     const apiData = {
@@ -38,6 +46,7 @@ const CreateEvent = () => {
       eventStartDate,
       eventEndDate,
       isMaxMembersPerTeamEnabled,
+      categorySingleSelection, // []
     };
   };
 
@@ -61,6 +70,21 @@ const CreateEvent = () => {
 
   const eventCodeWatcher = watch("eventCode");
 
+  // const getCurrentLocation = () => {
+  //   if ("geolocation" in navigator) {
+  //     navigator.geolocation.getCurrentPosition((pos) => {
+  //       setLocation(pos);
+  //       console.log("loc1", pos)
+  //     });
+  //   } else {
+  //     console.log("loc 0");
+  //   }
+  // };
+  //
+  // useEffect(() => {
+  //
+  // }, [location])
+
   return (
     <section className="create-event-page m-xl-5">
       <Container>
@@ -71,6 +95,7 @@ const CreateEvent = () => {
           <InputGroup>
             <FormControl
               name="eventCode"
+              type="text"
               ref={register({ min: 1, required: true, maxLength: 25 })}
               placeholder="hackmit2020"
               aria-label="eventcode"
@@ -86,6 +111,7 @@ const CreateEvent = () => {
           <label>Enter a memorable event code</label>
           <InputGroup>
             <FormControl
+              type="text"
               name="name"
               ref={register({ min: 3, max: 50, required: true })}
               placeholder={eventCodeWatcher || "myevent"}
@@ -151,6 +177,72 @@ const CreateEvent = () => {
             ))}
           </select>
         </div>
+
+        <div>
+          <FormGroup>
+            <FormLabel>Category</FormLabel>
+            <Typeahead
+              id="basic-typeahead-single"
+              labelKey="name"
+              onChange={setCategorySingleSelection}
+              options={["Hackathon"]}
+              placeholder="Choose a category..."
+              selected={categorySingleSelection}
+            />
+          </FormGroup>
+        </div>
+
+        <div>
+          <FormGroup>
+            <FormLabel>Location</FormLabel>
+            <InputGroup>
+              <FormControl
+                name="location"
+                type="text"
+                ref={register({
+                  min: 2,
+                  max: 1000,
+                })}
+                placeholder="Boston, MA"
+                aria-label="location"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+            {/*<ButtonToolbar style={{ marginTop: "10px" }}>*/}
+            {/*  <Button*/}
+            {/*    onClick={() => getCurrentLocation()}*/}
+            {/*    variant="outline-secondary"*/}
+            {/*  >*/}
+            {/*    Get location*/}
+            {/*  </Button>*/}
+            {/*</ButtonToolbar>*/}
+          </FormGroup>
+        </div>
+
+        <FormGroup>
+          <FormLabel>An easy link for others to join</FormLabel>
+          <InputGroup>
+            <FormControl
+              name="link"
+              type="url"
+              ref={register({
+                min: 2,
+                max: 1000,
+              })}
+              placeholder="https://discord.gg/somelink"
+              aria-label="link"
+              aria-describedby="basic-addon1"
+            />
+          </InputGroup>
+          {/*<ButtonToolbar style={{ marginTop: "10px" }}>*/}
+          {/*  <Button*/}
+          {/*    onClick={() => getCurrentLocation()}*/}
+          {/*    variant="outline-secondary"*/}
+          {/*  >*/}
+          {/*    Get location*/}
+          {/*  </Button>*/}
+          {/*</ButtonToolbar>*/}
+        </FormGroup>
 
         <div className="mt-lg-3 mb-lg-3">
           <label>Event start date</label>
