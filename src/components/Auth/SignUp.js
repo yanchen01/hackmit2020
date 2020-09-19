@@ -1,14 +1,38 @@
 import React, { useCallback } from 'react';
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 import firebase from 'firebase';
 
 const SignUp = ({ history }) => {
 	const handleSignUp = useCallback(
 		async (event) => {
 			event.preventDefault();
-			const { email, password } = event.target.elements;
+			const { email, password, fullName } = event.target.elements;
 			try {
-				await firebase.auth().createUserWithEmailAndPassword(email.value, password.value);
+				await firebase
+					.auth()
+					.createUserWithEmailAndPassword(email.value, password.value, fullName)
+					.then((res) => {
+						const uid = res.user.id;
+						const data = {
+							id: uid,
+							email: email.value,
+							fullName
+						};
+
+						const userRef = firebase.firestore().collection('users');
+						usersRef
+							.doc(uid)
+							.set(data)
+							.then(() => {
+								return <Redirect to="/" />;
+							})
+							.catch((err) => {
+								console.log(err);
+							});
+					})
+					.catch((err) => {
+						console.log(err);
+					});
 				history.push('/');
 			} catch (error) {
 				alert(error);
@@ -21,6 +45,10 @@ const SignUp = ({ history }) => {
 		<div>
 			<h1>Sign up</h1>
 			<form onSubmit={handleSignUp}>
+				<label>
+					Full Name
+					<input name="fullName" type="text" placeholder="Full Name" />
+				</label>
 				<label>
 					Email
 					<input name="email" type="email" placeholder="Email" />
