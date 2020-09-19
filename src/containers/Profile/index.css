@@ -6,3 +6,21 @@
 html, body, #app, #app>div {
     height: 100%
   }
+
+  .center {
+    width: auto;
+    height: auto;
+    min-width: 600px;
+    min-height: 600px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+.profile {
+    max-width: 400px;
+    max-height: 400px;
+}
