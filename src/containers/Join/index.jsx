@@ -1,5 +1,6 @@
 import React from 'react';
 import { InputGroup, Row, FormControl, Container, Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import firebase from 'firebase';
 import './style.css';
 
@@ -7,6 +8,8 @@ const Join = () => {
   const onSubmit = () => {
 
   }
+
+  const { register, handleSubmit, watch, errors } = useForm();
 
   return (
     <section className='join-event-page m-xl-5'>
@@ -18,7 +21,7 @@ const Join = () => {
           <InputGroup>
             <FormControl
               placeholder="hackmit2020"
-              aria-label="event code"
+              aria-label="eventcode"
               aria-describedby="basic-addon1"
             />
           </InputGroup>
