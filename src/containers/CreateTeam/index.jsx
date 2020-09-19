@@ -24,7 +24,7 @@ import {
   addMemberToTeam,
   addApplicationToTeam,
   updateTeam,
-} from "../backend/Teams/Teams";
+} from "../../backend/Events/Teams/Teams";
 
 const TAGS = ["AI", "Community/Connectivity"];
 
