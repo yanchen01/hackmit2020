@@ -95,4 +95,4 @@ const getEventById = (eventID) => {
 // 		});
 // };
 
-export { addEvent, editEvent, addEventMember };
+export { addEvent, editEvent, addEventMember, getEventById };
