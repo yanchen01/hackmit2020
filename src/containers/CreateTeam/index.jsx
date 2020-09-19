@@ -9,11 +9,18 @@ import {
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
+import "./style.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const TAGS = ["AI", "Community/Connectivity"];
 
 const CreateTeam = () => {
   const onSubmit = (data) => {};
 
   const { register, handleSubmit, watch, errors } = useForm();
+
+  // temp
+  const MAX_MEMBERS = 4;
 
   return (
     <section className="create-event-page m-xl-5">
@@ -45,7 +52,8 @@ const CreateTeam = () => {
             <FormControl
               name="maxMembers"
               type="number"
-              ref={register({ min: 2, max: 50, required: true })}
+              min={0}
+              ref={register({ min: 2, max: MAX_MEMBERS, required: true })}
               placeholder="4"
               aria-label="Username"
               aria-describedby="basic-addon1"
@@ -56,13 +64,14 @@ const CreateTeam = () => {
           )}
         </div>
 
-        <div className="mt-lg-3 mt-lg-3">
+        <div className="mt-lg-3 mb-lg-3">
           <label>Current team size</label>
           <InputGroup>
             <FormControl
               name="currentTeamSize"
               type="number"
-              ref={register({ min: 2, max: 50, required: true })}
+              min={0}
+              ref={register({ min: 2, max: MAX_MEMBERS, required: true })}
               placeholder="4"
               aria-label="usersPerTeam"
               aria-describedby="basic-addon1"
@@ -71,6 +80,15 @@ const CreateTeam = () => {
           {errors.currentTeamSize && (
             <span className="text-danger">This field is required</span>
           )}
+        </div>
+
+        <div className="mt-lg-3 mb-lg-3">
+          {TAGS.map((e, i) => (
+            <div key={`${e}-${i}`} className="chip">
+              {e}
+              <FontAwesomeIcon icon="times" />
+            </div>
+          ))}
         </div>
 
         <div className="mt-lg-3 mb-lg-3">
