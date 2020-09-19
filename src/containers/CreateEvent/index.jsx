@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   InputGroup,
   Row,
   FormControl,
   Container,
+  FormLabel,
   Button,
   FormGroup,
-  FormLabel,
-  ButtonToolbar,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
@@ -37,7 +36,7 @@ const CreateEvent = () => {
   });
 
   const onSubmit = (data) => {
-    const { eventCode, name, maxTeams, maxUsersPerTeam } = data;
+    const { eventCode, name, maxTeams, maxUsersPerTeam, link } = data;
     const apiData = {
       eventCode,
       name,
@@ -47,6 +46,8 @@ const CreateEvent = () => {
       eventEndDate,
       isMaxMembersPerTeamEnabled,
       categorySingleSelection, // []
+      location,
+      link,
     };
   };
 
