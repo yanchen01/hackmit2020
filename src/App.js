@@ -12,6 +12,7 @@ import Home from './containers/Home/Home';
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import Event from './containers/Event/Event.jsx';
+import Profile from './containers/Profile/Profile.jsx'
 
 /* Import Auth */
 import { AuthProvider } from './Auth';
@@ -48,6 +49,7 @@ const App = () => {
 					<PrivateRoute exact path="/createteam" component={CreateTeam} />
 					<PrivateRoute exact path="/join" component={Join} />
 					<PrivateRoute exact path="/teamlist" component={TeamList} />
+          <Route exact path="/profile" component={Profile} />
 				</div>
 			</Router>
 		</AuthProvider>
