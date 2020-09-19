@@ -17,11 +17,12 @@ import { GlobalStyles, darkTheme } from "./styles";
 
 /* Import containers */
 
-import Home from "./containers/Home/Home";
-import Login from "./components/Auth/Login";
-import SignUp from "./components/Auth/SignUp";
-import Event from "./containers/Event/Event.jsx";
-import Profile from "./containers/Profile/Profile.jsx";
+import Home from './containers/Home/Home';
+import Login from './components/Auth/Login';
+import SignUp from './components/Auth/SignUp';
+import Event from './containers/Event/Event.jsx';
+import Profile from './containers/Profile/Profile.jsx'
+import Settings from './containers/Settings/Settings.jsx'
 
 /* Import Auth */
 import { AuthProvider } from "./Auth";
@@ -62,6 +63,7 @@ const App = () => {
               <PrivateRoute exact path="/join" component={Join} />
               <PrivateRoute exact path="/teamlist" component={TeamList} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/settings" component={Settings} />
             </div>
           </Router>
         </>

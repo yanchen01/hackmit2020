@@ -10,7 +10,7 @@ const addEvent = (name, eventCode, date, location = '', currentUserUID, link = '
 			date,
 			location,
 			organizer: currentUserUID,
-			links,
+			link,
 			category,
 			members: [],
 			teams: []
