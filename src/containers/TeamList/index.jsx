@@ -4,43 +4,6 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import faker from 'faker'
 import { brotliCompress } from 'zlib';
 
-
-// Testing purposes
-const list = [1, 2, 3];
-
-class GroupList extends React.Component {
-  render() {
-    var names = this.props.teamNames;
-          var namesList = names.map(function(name){
-                          return <Team name={name} />;
-                        })
-
-          return (
-            <div>
-              <ul>{ namesList }</ul>
-            </div>
-          );
-  }
-}
-
-class Team extends React.Component {
-  render() {
-    return(
-      <Container>
-        <div className="rounded-pill border border-dark">
-        <Row>
-            <Col>{this.props.name} - 3/4</Col>       
-        </Row>
-        <Row>
-            <Col><p>We are the best team around. Plain and simple.</p></Col>
-        </Row>
-        </div>
-        <br />
-      </Container>
-    );
-  }
-}
-
 const TeamList = () => {
 
   const data = new Array(1000).fill().map((value, id) => (({
@@ -70,7 +33,7 @@ const TeamList = () => {
   return (
     <div>
       <Navbar className="justify-content-md-center" expand="lg" variant="light" bg="light">
-        <Navbar.Brand href="/event">Event Name</Navbar.Brand>
+        <Navbar.Brand className="text-center" href="/event">Event Name</Navbar.Brand>
       </Navbar>
 
       <h3 className="text-center"> Team List </h3>
@@ -96,23 +59,4 @@ const TeamList = () => {
   );
 }
   
-/*
-    return (
-      <div>
-        <Navbar className="justify-content-md-center" expand="lg" variant="light" bg="light">
-          <Navbar.Brand href="/event">Event Name</Navbar.Brand>
-        </Navbar>
-
-        <div className="justify-content-md-center">
-          <h1 className="text-center">Team List</h1>
-          
-          <button> Add Team </button>
-          
-        </div>  
-
-      </div>
-
-    );
-  }
-*/
 export default TeamList;
