@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   InputGroup,
   FormControl,
@@ -12,15 +12,23 @@ import "./style.css";
 import { Chip, Snackbar } from "@material-ui/core";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import { useSnackbar } from "notistack";
+import firebase from "firebase";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { generateName } from "../../helpers/name";
 
 const TAGS = ["AI", "Community/Connectivity"];
 
+const testEmailRegex = RegExp(
+  /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
+);
+
 const CreateTeam = () => {
   const [tags, setTags] = useState(TAGS);
   const [tagToAdd, setTagToAdd] = useState([]);
+  const [email, setEmail] = useState("");
+  const [members, setMembers] = useState([]);
+
   const onSubmit = (data) => {};
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -61,6 +69,24 @@ const CreateTeam = () => {
           typeaheadRef.current.clear();
         }
       }
+    }
+  };
+
+  // Get all users
+  useEffect(() => {
+
+  }, []);
+
+  const onAddMember = (email) => {
+    if (email.length > 0 && testEmailRegex.test(email)) {
+      const currentMembers = [...members];
+      currentMembers.push(email);
+      setMembers(currentMembers);
+    } else {
+      enqueueSnackbar("Invalid email!", {
+        variant: "error",
+        onClick: () => closeSnackbar(),
+      });
     }
   };
 
@@ -112,24 +138,6 @@ const CreateTeam = () => {
         </div>
 
         <div className="mt-lg-3 mb-lg-3">
-          <label>Current team size</label>
-          <InputGroup>
-            <FormControl
-              name="currentTeamSize"
-              type="number"
-              min={0}
-              ref={register({ min: 2, max: MAX_MEMBERS, required: true })}
-              placeholder="4"
-              aria-label="usersPerTeam"
-              aria-describedby="basic-addon1"
-            />
-          </InputGroup>
-          {errors.currentTeamSize && (
-            <span className="text-danger">This field is required</span>
-          )}
-        </div>
-
-        <div className="mt-lg-3 mb-lg-3">
           <label>Add tags</label>
           <AsyncTypeahead
             clearButton
@@ -160,13 +168,49 @@ const CreateTeam = () => {
               onClick={() => onAddTag(tagToAdd)}
               variant="outline-secondary"
             >
-              Add
+              Add Tag
             </Button>
           </ButtonToolbar>
         </div>
 
         <div className="mt-lg-3 mb-lg-3">
           {tags.map((e, i) => (
+            <Chip
+              className="mr-2"
+              label={e}
+              key={`${e}-${i}`}
+              variant="outlined"
+              onDelete={() => onDeleteTag(e)}
+            />
+          ))}
+        </div>
+
+        <div className="mt-lg-3 mb-lg-3">
+          <label>Add members</label>
+          <InputGroup>
+            <FormControl
+              name="teamEmail"
+              type="email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              placeholder="yourteammember@gmail.com"
+              aria-label="team"
+              aria-describedby="basic-addon1"
+            />
+          </InputGroup>
+          <ButtonToolbar style={{ marginTop: "10px" }}>
+            <Button
+              onClick={() => onAddMember(email)}
+              variant="outline-secondary"
+            >
+              Add Member
+            </Button>
+          </ButtonToolbar>
+        </div>
+
+        <div className="mt-lg-3 mb-lg-3">
+          {members.map((e, i) => (
             <Chip
               className="mr-2"
               label={e}
