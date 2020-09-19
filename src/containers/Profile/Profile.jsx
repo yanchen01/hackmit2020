@@ -88,7 +88,7 @@ const Profile = () => {
     <Container className="w-100 h-100">
       
         <React.Fragment key="left">
-            <Drawer anchor="Mhhhm Hamburger" open={anchor} onClose={toggleDrawer("left", false)}>
+            <Drawer anchor="left" open={anchor} onClose={toggleDrawer("left", false)}>
             {list(anchor)}
             </Drawer>
         </React.Fragment>
