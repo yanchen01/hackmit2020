@@ -26,7 +26,7 @@ const Home = () => {
 				<Row>
 					<Button
 						onClick={() => {
-							history.push('/createevent');
+							history.push('/event');
 						}}
 						variant="outline-primary"
 						size="lg"

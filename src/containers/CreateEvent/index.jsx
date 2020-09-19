@@ -50,9 +50,11 @@ const CreateEvent = (props) => {
 			apiData.uid,
 			apiData.link,
 			apiData.categorySingleSelection
-    );
-    
-    props.history.goBack();
+		);
+
+		console.log();
+
+		props.history.push(`${props.history.location.pathname}/${apiData.eventID}`);
 	};
 
 	const { register, handleSubmit, watch, errors } = useForm();
