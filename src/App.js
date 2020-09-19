@@ -35,6 +35,7 @@ const App = () => {
 				<div>
 					<Route exact path="/login" component={Login} />
 					<PrivateRoute exact path="/" component={Home} />
+					<Route exact path="/home" component={Home} />
 					<Route exact path="/signup" component={SignUp} />
 					<Route exact path="/createevent" component={CreateEvent} />
 					<Route exact path="/createteam" component={CreateTeam} />
