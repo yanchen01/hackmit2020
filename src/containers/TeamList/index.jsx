@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import faker from 'faker'
 import { brotliCompress } from 'zlib';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Hamburger from './hamburger.jsx';
 import './index.css'
 
 // Drawer/HAMBURGER menu
@@ -59,18 +60,31 @@ const TeamList = () => {
     >
     
     <List>
-      <h2 className="text-center">Lobby</h2>
-      <br />
-      <h3>Current Events:</h3>
-        <ul>
-          <li>Standford Hacks 2020</li>
-          <li>Cake Cooking Competition</li>
-          <li>FizzBuzz Showdown</li>
-        </ul>
-        <hr/>
-        <p><FontAwesomeIcon icon="cog" /> Settings</p>
-        <p><FontAwesomeIcon icon="sign-out-alt" /> Sign Out</p>
-
+      <Container fluid>
+        <Row>
+          <Col>
+            <h2 className="text-center">Lobby</h2>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+          <hr/>
+          <h3>Current Events:</h3>
+          <ul>
+            <li>Standford Hacks 2020</li>
+            <li>Cake Cooking Competition</li>
+            <li>FizzBuzz Showdown</li>
+          </ul>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <hr/>
+            <p><a href="/settings"><FontAwesomeIcon icon="cog" /> Settings</a></p>
+            <p><FontAwesomeIcon icon="sign-out-alt" /> Sign Out</p>
+          </Col>
+        </Row>
+      </Container>
     </List>
     
     
