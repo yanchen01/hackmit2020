@@ -10,9 +10,10 @@ const SignUp = ({ history }) => {
 			try {
 				await firebase
 					.auth()
-					.createUserWithEmailAndPassword(email.value, password.value, fullName)
+					.createUserWithEmailAndPassword(email.value, password.value)
 					.then((res) => {
 						const uid = res.user.id;
+						console.log(uid);
 						const data = {
 							id: uid,
 							email: email.value,
@@ -20,7 +21,8 @@ const SignUp = ({ history }) => {
 						};
 
 						const userRef = firebase.firestore().collection('users');
-						usersRef
+
+						userRef
 							.doc(uid)
 							.set(data)
 							.then(() => {
