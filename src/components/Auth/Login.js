@@ -1,11 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { withRouter, Redirect } from "react-router";
 import firebase from "firebase";
-// import axios from 'axios';
-
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Button, Col, Image, Nav, Navbar, Row } from "react-bootstrap";
-import { Box, Container } from "@material-ui/core";
+import { Image, Nav, Navbar } from "react-bootstrap";
 import { GitHub } from "@material-ui/icons";
 
 import { AuthContext } from "../../Auth";

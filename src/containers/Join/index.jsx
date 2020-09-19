@@ -19,6 +19,7 @@ const Join = () => {
 
   return (
     <section className="join-event-page m-xl-5">
+
       <Container>
         <h1>Join Event</h1>
 
