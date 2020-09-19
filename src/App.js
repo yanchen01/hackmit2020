@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import firebase from "firebase";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
+
 import { ThemeProvider } from "styled-components";
 import {
   faTimes,
@@ -20,6 +21,11 @@ import { GlobalStyles, darkTheme } from "./styles";
 import Home from "./containers/Home/Home";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
+<<<<<<< HEAD
+=======
+import Event from "./containers/Event/Event.jsx";
+
+>>>>>>> a8ac76df1f77c3ba78134a4c981ef254ea028be5
 import Profile from "./containers/Profile/Profile.jsx";
 import Settings from "./containers/Settings/Settings.jsx";
 

@@ -17,20 +17,59 @@ import firebase from "firebase";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { generateName } from "../../helpers/name";
 
+import {
+  createTeam,
+  getAllTeamsInEvent,
+  removeMemberFromTeam,
+  addMemberToTeam,
+  addApplicationToTeam,
+  updateTeam,
+} from "../backend/Teams/Teams";
+
 const TAGS = ["AI", "Community/Connectivity"];
+
+// have to add an input field to add a description in the frontend
+
+// double check property eventId if it is passed correctly
 
 const testEmailRegex = RegExp(
   /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
 );
 
-const CreateTeam = () => {
+const CreateTeam = ({ eventId }) => {
   const [tags, setTags] = useState(TAGS);
   const [tagToAdd, setTagToAdd] = useState([]);
   const [email, setEmail] = useState("");
   const [members, setMembers] = useState([]);
 
-  const onSubmit = (data) => {};
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  const onSubmit = (data) => {
+    const { teamName, maxMembers, tags, members } = data;
+    // Adding the current user creating the team to the array of members
+    members.push(firebase.auth().currentUser.uid);
+
+    // const apiData = {
+    //   teamName,
+    //   eventId: eventId,
+    //   capacity: maxMembers,
+    //   teamTags,
+    //   members,
+    //   applications: [],
+    //   isFull: maxMembers === members.length
+    // };
+    const isFull = maxMembers === members.length;
+    createTeam(
+      teamName,
+      eventId,
+      members,
+      "supposed to have a description field in the frontend",
+      maxMembers,
+      isFull,
+      [],
+      tags
+    );
+  };
 
   const { register, handleSubmit, watch, setValue, errors } = useForm();
 
@@ -73,9 +112,7 @@ const CreateTeam = () => {
   };
 
   // Get all users
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
 
   const onAddMember = (email) => {
     if (email.length > 0 && testEmailRegex.test(email)) {
