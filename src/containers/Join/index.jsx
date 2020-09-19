@@ -1,14 +1,22 @@
 import React from 'react';
+import { InputGroup, FormControl } from "react-bootstrap";
 import firebase from 'firebase';
 
 const Join = () => {
   const onSubmit = () => {
-
   }
 
   return (
-    <div>
+    <section className='join-event-page'>
       <h1>Join Event</h1>
+      <InputGroup>
+        <FormControl
+          placeholder="Username"
+          aria-label="hackmit2020"
+          aria-describedby="basic-addon1"
+        />
+      </InputGroup>
+
       <form onSubmit={onSubmit}>
         <label>
           Enter event code
@@ -19,7 +27,7 @@ const Join = () => {
           <input name="name" type="name" placeholder="Alex" />
         </label>
       </form>
-    </div>
+    </section>
   );
 }
 
