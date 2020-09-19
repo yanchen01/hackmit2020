@@ -37,8 +37,8 @@ const Login = ({ history }) => {
   }
 
   return (
-    <section className="bg-dark cover-full">
-      <h1 className="text-light">Login</h1>
+    <section className="login">
+      <h1>Login</h1>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
     </section>
   );
