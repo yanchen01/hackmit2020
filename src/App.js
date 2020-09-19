@@ -4,17 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import firebase from "firebase";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
-<<<<<<< HEAD
 
-/* Import containers */
-import {
-  faTimes,
-  faArrowRight,
-  faPlusCircle,
-  faHamburger,
-  faCog,
-} from "@fortawesome/free-solid-svg-icons";
-=======
 import { ThemeProvider } from "styled-components";
 import {
   faTimes,
@@ -27,17 +17,14 @@ import {
 import { GlobalStyles, darkTheme } from "./styles";
 
 /* Import containers */
->>>>>>> f58ee743620dcd3cf08d1953fc064988cc45d0a3
 
 import Home from "./containers/Home/Home";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
 import Event from "./containers/Event/Event.jsx";
-<<<<<<< HEAD
-=======
+
 import Profile from "./containers/Profile/Profile.jsx";
 import Settings from "./containers/Settings/Settings.jsx";
->>>>>>> f58ee743620dcd3cf08d1953fc064988cc45d0a3
 
 /* Import Auth */
 import { AuthProvider } from "./Auth";
@@ -63,7 +50,6 @@ library.add(fab, faTimes, faArrowRight, faPlusCircle, faHamburger, faCog);
 const App = () => {
   return (
     <AuthProvider>
-<<<<<<< HEAD
       <Router>
         <div>
           <Route exact path="/login" component={Login} />
@@ -81,28 +67,6 @@ const App = () => {
           <PrivateRoute exact path="/teamlist" component={TeamList} />
         </div>
       </Router>
-=======
-      <ThemeProvider theme={darkTheme}>
-        <>
-          {/*<GlobalStyles />*/}
-          <Router>
-            <div>
-              <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/" component={Home} />
-              <PrivateRoute exact path="/home" component={Home} />
-              <Route exact path="/signup" component={SignUp} />
-              <Route exact path="/event" component={Event} />
-              <Route exact path="/createevent" component={CreateEvent} />
-              <Route exact path="/createteam" component={CreateTeam} />
-              <Route exact path="/join" component={Join} />
-              <Route exact path="/teamlist" component={TeamList} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/settings" component={Settings} />
-            </div>
-          </Router>
-        </>
-      </ThemeProvider>
->>>>>>> f58ee743620dcd3cf08d1953fc064988cc45d0a3
     </AuthProvider>
   );
 };

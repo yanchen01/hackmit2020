@@ -24,7 +24,7 @@ import {
   addMemberToTeam,
   addApplicationToTeam,
   updateTeam,
-} from "../../backend/Teams/Teams";
+} from "../backend/Teams/Teams";
 
 const TAGS = ["AI", "Community/Connectivity"];
 
@@ -42,7 +42,6 @@ const CreateTeam = ({ eventId }) => {
   const [email, setEmail] = useState("");
   const [members, setMembers] = useState([]);
 
-  const onSubmit = (data) => {};
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const onSubmit = (data) => {
@@ -64,7 +63,7 @@ const CreateTeam = ({ eventId }) => {
       teamName,
       eventId,
       members,
-      description,
+      "supposed to have a description field in the frontend",
       maxMembers,
       isFull,
       [],
