@@ -1,21 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   InputGroup,
-  Row,
   FormControl,
   Container,
   Button,
-  FormGroup,
   ButtonToolbar,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Chip, Snackbar } from "@material-ui/core";
-import { AsyncTypeahead, Typeahead } from "react-bootstrap-typeahead";
-import { useSnackbar, withSnackbar } from "notistack";
-import _ from "lodash";
+import { AsyncTypeahead } from "react-bootstrap-typeahead";
+import { useSnackbar } from "notistack";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { generateName } from "../../helpers/name";
