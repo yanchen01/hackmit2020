@@ -11,6 +11,7 @@ import {
   faArrowRight,
   faPlusCircle,
   faHamburger,
+  faCog,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Home from "./containers/Home/Home";

@@ -6,9 +6,81 @@ import { brotliCompress } from 'zlib';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './index.css'
 
+// Drawer/HAMBURGER menu
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import DrawerButton from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 const TeamList = () => {
+
+  // Hamburger
+  const useStyles = makeStyles({
+    list: {
+      width: 250,
+    },
+    fullList: {
+      width: 'auto',
+    },
+  });
+
+  const [anchor, setAnchor] = useState(false);
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setAnchor(open);
+  };
+
+  const classes = makeStyles({
+    list: {
+      width: 550,
+    },
+    fullList: {
+      width: 'auto',
+    },
+  });
+
+  const list = (anchor) => (
+    
+    <div
+      className="dr"
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+    
+    <List>
+      <h2 className="text-center">Lobby</h2>
+      <br />
+      <h3>Current Events:</h3>
+        <ul>
+          <li>Standford Hacks 2020</li>
+          <li>Cake Cooking Competition</li>
+          <li>FizzBuzz Showdown</li>
+        </ul>
+        <hr/>
+        <p><FontAwesomeIcon icon="cog" /> Settings</p>
+        <p><FontAwesomeIcon icon="sign-out-alt" /> Sign Out</p>
+
+    </List>
+    
+    
+    </div>
+    
+  );
+
+
+  // ^^^^^^^^^^^^^
+
 
   const data = new Array(1000).fill().map((value, id) => (({
     id: id,
@@ -37,11 +109,18 @@ const TeamList = () => {
   return (
     
     <div>
-      <Navbar className="justify-content-md-center" expand="lg" variant="light" bg="light">
-        <Navbar.Brand className="text-center" href="/event">Event Name</Navbar.Brand>
+      <Navbar className="" expand="lg" variant="light" bg="light">
+        <FontAwesomeIcon onClick={toggleDrawer("left", true)} className="" icon="hamburger" />
+        <Navbar.Brand className="mx-auto" href="/event">Event Name</Navbar.Brand>
       </Navbar>
-
+     
       <h3 className="text-center"> Team List </h3>
+      
+      <React.Fragment key="left">
+        <Drawer anchor="Mhhhm Hamburger" open={anchor} onClose={toggleDrawer("left", false)}>
+          {list(anchor)}
+        </Drawer>
+      </React.Fragment>
 
       <InfiniteScroll
         dataLength={current.length}
@@ -70,5 +149,7 @@ const TeamList = () => {
     </div>
   );
 }
+
+
   
 export default TeamList;
