@@ -55,8 +55,8 @@ const App = () => {
 						<Route exact path="/join" component={Join} />
 						<PrivateRoute exact path="/event" component={CreateEvent} />
 						<Switch>
-							<PrivateRoute path="/event/:id/teamlist" component={TeamList} />
-							<PrivateRoute path="/event/:id" component={CreateTeam} />
+							<Route path="/event/:id/teamlist" component={TeamList} />
+							<Route path="/event/:id" component={CreateTeam} />
 						</Switch>
 					</div>
 				</Router>

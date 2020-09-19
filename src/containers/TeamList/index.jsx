@@ -3,7 +3,8 @@ import { Navbar, Container, Row, Col, ListGroup, Button, Modal } from 'react-boo
 import InfiniteScroll from 'react-infinite-scroll-component';
 import faker from 'faker'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import './index.css'
+import './index.css';
+import {getAllTeamsInEvent} from '../../backend/Events/Teams/Teams';
 
 // Drawer/HAMBURGER menu
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +16,7 @@ const TeamList = () => {
 
   // Hamburger
   function EventModal(props) {
+    console.log(getAllTeamsInEvent("5bdd5ee5-5f7b-42af-a909-ec98d39becd7"));
     return (
       <Modal
         {...props}
