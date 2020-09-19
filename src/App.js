@@ -9,16 +9,15 @@ import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import Event from './containers/Event/Event.jsx';
 
-
 /* Import Auth */
 import { AuthProvider } from './Auth';
 import PrivateRoute from './PrivateRoute';
-import CreateEvent from "./containers/CreateEvent";
-import CreateTeam from "./containers/CreateTeam";
-import Join from "./containers/Join";
-import TeamList from "./containers/TeamList";
+import CreateEvent from './containers/CreateEvent';
+import CreateTeam from './containers/CreateTeam';
+import Join from './containers/Join';
+import TeamList from './containers/TeamList';
 
-import {addEventMember, addEventTeam} from './backend/Events/Events';
+import { addEventMember, addEventTeam } from './backend/Events/Events';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyD-w8z8ollWZttoETyFL7Zkk-FVnhZoKdw',
