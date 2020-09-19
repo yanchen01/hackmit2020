@@ -2,14 +2,13 @@ import firebase from "firebase";
 
 // dont know how to implement authorization for these methods to check if the user calling them is allowed to
 
-const updateTeam = (teamId, teamName, description, capacity, teamTags) => {
+const updateTeam = (teamId, teamName, capacity, teamTags) => {
   firebase
     .firestore()
     .collection("teams")
     .doc(teamId)
     .update({
       teamName: teamName,
-      description: description,
       capacity: capacity,
       teamTags: teamTags,
     })
@@ -55,10 +54,10 @@ const removeMemberFromTeam = (teamId, removedMemberId) => {
 };
 
 const createTeam = (
+  teamId,
   teamName,
   eventId,
   members,
-  description,
   capacity,
   isFull,
   applications,
@@ -67,11 +66,11 @@ const createTeam = (
   firebase
     .firestore()
     .collection("teams")
-    .add({
+    .doc(teamId)
+    .set({
       name: teamName,
       eventId: eventId,
       members: members,
-      description: description,
       capacity: capacity,
       isFull: isFull,
       teamTags: teamTags,
