@@ -1,0 +1,8 @@
+.middle {
+    margin-left: auto;
+    margin-top: auto;
+}
+
+html, body, #app, #app>div {
+    height: 100%
+  }
