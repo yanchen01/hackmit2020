@@ -5,11 +5,14 @@ import firebase from 'firebase';
 import './style.css';
 
 const Join = () => {
-  const onSubmit = () => {
+  const onSubmit = (data) => {
+    const { eventCode, name } = data;
 
   }
 
   const { register, handleSubmit, watch, errors } = useForm();
+
+  console.log('errors', errors)
 
   return (
     <section className='join-event-page m-xl-5'>
@@ -20,12 +23,15 @@ const Join = () => {
           <label>Enter event code</label>
           <InputGroup>
             <FormControl
+              name='eventCode'
+              ref={register({ min: 1, required: true, maxLength: 25 })}
               placeholder="hackmit2020"
               aria-label="eventcode"
               aria-describedby="basic-addon1"
             />
           </InputGroup>
         </div>
+        {errors.eventCode && <span className='text-danger'>This field is required</span>}
 
         <div className='mt-lg-3 mt-lg-3'>
           <label>
@@ -33,15 +39,18 @@ const Join = () => {
           </label>
           <InputGroup>
             <FormControl
+              name='name'
+              ref={register({ min: 3, max: 50, required: true })}
               placeholder="Alex"
               aria-label="Username"
               aria-describedby="basic-addon1"
             />
           </InputGroup>
         </div>
+        {errors.name && <span className='text-danger'>This field is required</span>}
 
         <div className='mt-lg-3 mb-lg-3'>
-          <Button variant='primary' size='lg'>
+          <Button onClick={handleSubmit(onSubmit)} variant='primary' size='lg'>
             Join
           </Button>
         </div>
