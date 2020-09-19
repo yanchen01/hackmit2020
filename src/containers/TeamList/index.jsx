@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { Navbar, Container, Row, Col, ListGroup } from 'react-bootstrap';
+import { Navbar, Container, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import faker from 'faker'
 import { brotliCompress } from 'zlib';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import './index.css'
+
+
 
 const TeamList = () => {
 
   const data = new Array(1000).fill().map((value, id) => (({
     id: id,
-    title: faker.lorem.words(5),
+    title: faker.name.firstName(),
     body: faker.lorem.sentences(8)
   })))
 
@@ -31,6 +35,7 @@ const TeamList = () => {
   }
 
   return (
+    
     <div>
       <Navbar className="justify-content-md-center" expand="lg" variant="light" bg="light">
         <Navbar.Brand className="text-center" href="/event">Event Name</Navbar.Brand>
@@ -47,9 +52,16 @@ const TeamList = () => {
       
         <ListGroup variant="flush">
           {current && current.map(((item, index) => (
-            <ListGroup.Item key={index} className="post rounded-pill border border-dark">
-              <h3>{`${item.title}-${item.id}`}</h3>
-              <p>{item.body}</p>
+            <ListGroup.Item key={index} className="mt-3 post">
+              <Row className="align-items-center">
+                <Col sm={10}><h3>{`${item.title}`}</h3>
+                <p>{item.body}</p>
+                </Col>
+                <Col sm={2}>
+                  <h4>3/4</h4>
+                  <Button size="lg" variant="outline-primary">Join <FontAwesomeIcon icon="arrow-right" /></Button>
+                </Col>
+              </Row>
             </ListGroup.Item>
           )))
           }
