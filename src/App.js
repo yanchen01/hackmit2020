@@ -12,6 +12,8 @@ import SignUp from './components/Auth/SignUp';
 import { AuthProvider } from './Auth';
 import PrivateRoute from './PrivateRoute';
 
+import {addEventMember, addEventTeam} from './backend/Events/Events';
+
 const firebaseConfig = {
 	apiKey: 'AIzaSyD-w8z8ollWZttoETyFL7Zkk-FVnhZoKdw',
 	authDomain: 'hackmit2020-a3fb0.firebaseapp.com',
