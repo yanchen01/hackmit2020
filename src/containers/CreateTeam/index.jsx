@@ -18,6 +18,7 @@ import { useSnackbar, withSnackbar } from "notistack";
 import _ from "lodash";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import { generateName } from "../../helpers/name";
 
 const TAGS = ["AI", "Community/Connectivity"];
 
@@ -27,7 +28,7 @@ const CreateTeam = () => {
   const onSubmit = (data) => {};
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, watch, setValue, errors } = useForm();
 
   // temp
   const MAX_MEMBERS = 4;
@@ -38,6 +39,11 @@ const CreateTeam = () => {
       currentTags = currentTags.filter((e) => e !== tag);
     }
     setTags(currentTags);
+  };
+
+  const onRandomizeTeamName = () => {
+    const teamName = generateName();
+    setValue("team", teamName);
   };
 
   const typeaheadRef = useRef();
@@ -81,6 +87,11 @@ const CreateTeam = () => {
               This field is required (1-25 characters)
             </span>
           )}
+          <ButtonToolbar style={{ marginTop: "10px" }}>
+            <Button onClick={onRandomizeTeamName} variant="outline-secondary">
+              Randomize
+            </Button>
+          </ButtonToolbar>
         </div>
 
         {/* conditionally based on current event's max team member size */}
