@@ -6,6 +6,7 @@ import {
   Container,
   Button,
   FormGroup,
+  ButtonToolbar,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
@@ -23,6 +24,7 @@ const TAGS = ["AI", "Community/Connectivity"];
 
 const CreateTeam = () => {
   const [tags, setTags] = useState(TAGS);
+  const [tagToAdd, setTagToAdd] = useState("");
   const onSubmit = (data) => {};
 
   const { register, handleSubmit, watch, errors } = useForm();
@@ -38,7 +40,18 @@ const CreateTeam = () => {
     setTags(currentTags);
   };
 
-  const typeaheadRef = useRef(null);
+  const typeaheadRef = useRef();
+
+  const onAddTag = (tag) => {
+    if (tag.length > 0) {
+      let currentTags = [...tags];
+      if (!currentTags.includes(tag)) {
+        currentTags = [...tags, tag];
+      }
+      typeaheadRef.current.clear();
+      setTags(currentTags);
+    }
+  };
 
   return (
     <section className="create-event-page m-xl-5">
@@ -105,10 +118,26 @@ const CreateTeam = () => {
           <Typeahead
             id="tags-select"
             dropup
-            options={["ML", "Health care", "Urban Innovation", "React", "React Native", "iOS", "Android"]}
-            onChange={() => {}}
+            options={[
+              "ML",
+              "Health care",
+              "Urban Innovation",
+              "React",
+              "React Native",
+              "iOS",
+              "Android",
+            ]}
+            onChange={(e) => setTagToAdd(e)}
             ref={typeaheadRef}
           />
+          <ButtonToolbar style={{ marginTop: "10px" }}>
+            <Button
+              onClick={() => onAddTag(tagToAdd)}
+              variant="outline-secondary"
+            >
+              Add
+            </Button>
+          </ButtonToolbar>
         </div>
 
         <div className="mt-lg-3 mb-lg-3">
