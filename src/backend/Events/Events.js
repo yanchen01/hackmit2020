@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-const addEvent = (name, eventCode, date, location = '', currentUserUID, links, categoryTags) => {
+const addEvent = (name, eventCode, date, location = '', currentUserUID, link = '', category = '') => {
 	firebase
 		.firestore()
 		.collection('events')
@@ -11,7 +11,7 @@ const addEvent = (name, eventCode, date, location = '', currentUserUID, links, c
 			location,
 			organizer: currentUserUID,
 			links,
-			categoryTags: categoryTags,
+			category,
 			members: [],
 			teams: []
 		})

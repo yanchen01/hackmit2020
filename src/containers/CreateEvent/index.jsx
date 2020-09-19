@@ -18,7 +18,6 @@ const CreateEvent = () => {
 	const [ eventStartDate, setEventStartDate ] = useState(initialStartDate);
 	const [ eventEndDate, setEventEndDate ] = useState(initialEndDate);
 	const onSubmit = (data) => {
-		console.log(firebase.auth().currentUser);
 		const { eventCode, name, maxTeams, maxUsersPerTeam } = data;
 		const apiData = {
 			eventCode,
@@ -32,7 +31,6 @@ const CreateEvent = () => {
 			currentUser: firebase.auth().currentUser.uid,
 			isMaxMembersPerTeamEnabled
 		};
-		console.log(apiData);
 	};
 
 	const { register, handleSubmit, watch, errors } = useForm();
