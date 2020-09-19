@@ -1,32 +1,48 @@
 import React from 'react';
-import { InputGroup, FormControl } from "react-bootstrap";
+import { InputGroup, Row, FormControl, Container, Button } from "react-bootstrap";
 import firebase from 'firebase';
+import './style.css';
 
 const Join = () => {
   const onSubmit = () => {
+
   }
 
   return (
-    <section className='join-event-page'>
-      <h1>Join Event</h1>
-      <InputGroup>
-        <FormControl
-          placeholder="Username"
-          aria-label="hackmit2020"
-          aria-describedby="basic-addon1"
-        />
-      </InputGroup>
+    <section className='join-event-page m-xl-5'>
+      <Container>
+        <h1>Join Event</h1>
 
-      <form onSubmit={onSubmit}>
-        <label>
-          Enter event code
-          <input name="code" type="code" placeholder="hackmit2020" />
-        </label>
-        <label>
-          What would you like your teammates to call you?
-          <input name="name" type="name" placeholder="Alex" />
-        </label>
-      </form>
+        <div className='mt-lg-3 mb-lg-3'>
+          <label>Enter event code</label>
+          <InputGroup>
+            <FormControl
+              placeholder="hackmit2020"
+              aria-label="event code"
+              aria-describedby="basic-addon1"
+            />
+          </InputGroup>
+        </div>
+
+        <div className='mt-lg-3 mt-lg-3'>
+          <label>
+            What would you like your teammates to call you?
+          </label>
+          <InputGroup>
+            <FormControl
+              placeholder="Alex"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
+          </InputGroup>
+        </div>
+
+        <div className='mt-lg-3 mb-lg-3'>
+          <Button variant='primary' size='lg'>
+            Join
+          </Button>
+        </div>
+      </Container>
     </section>
   );
 }
