@@ -37,18 +37,18 @@ const Profile = () => {
 
     if (currentUser) {
       authContext.setCurrentUser(currentUser);
-      // const eventsCreated = getEventsCreated(authContext.currentUser.uid);
+      const eventsCreated = getEventsCreated(authContext.currentUser.uid);
       const eventsJoined = getEventsJoined(authContext.currentUser.uid);
-      // console.log(
-      //   "Profile Current User: ",
-      //   currentUser,
-      //   "EVENTS",
-      //   eventsCreated,
-      //   "EVENTS JOINED",
-      //   eventsJoined
-      // );
-    } else {
-      console.log(currentUser);
+
+      if (eventsCreated) {
+        const currentEvents = [...events, ...eventsCreated];
+        setEvents(currentEvents);
+      }
+
+      if (eventsJoined) {
+        const currentEvents = [...events, ...eventsJoined];
+        setEvents(currentEvents);
+      }
     }
   }, []);
 
@@ -126,7 +126,7 @@ const Profile = () => {
   const renderTeamRows = () => {
     return (
       <div className="mt-5">
-        <h4>Teams</h4>
+        <h4>Events</h4>
         <List component="nav" aria-labelledby="nested-list-subheader"></List>
       </div>
     );
