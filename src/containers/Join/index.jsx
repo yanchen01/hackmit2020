@@ -2,20 +2,42 @@ import React, { useContext, useEffect } from 'react';
 import { InputGroup, FormControl, Container, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import './style.css';
-import { addEventMember } from '../../backend/Events/Events';
+// import { addEventMember } from '../../backend/Events/Events';
 import firebase from 'firebase';
 
 import { AuthContext } from '../../Auth';
 
 import { Redirect } from 'react-router-dom';
 
-const Join = () => {
+const Join = (props) => {
 	const authContext = useContext(AuthContext);
 	let unauthenticated = null;
 
+	const addEventMember = (eventCode, memberUID) => {
+		let eventID;
+		const eventQueried = [];
+
+		firebase.firestore().collection('events').where('eventCode', '==', eventCode).get().then((eventResult) => {
+			eventResult.forEach((res) => {
+				eventQueried.push(res.id);
+			});
+
+			eventID = eventQueried[0];
+
+			firebase.firestore().collection('events').doc(eventID).update({
+				members: firebase.firestore.FieldValue.arrayUnion(memberUID)
+			});
+
+			firebase.firestore().collection('users').doc(memberUID).update({
+				eventsJoined: firebase.firestore.FieldValue.arrayUnion(eventID)
+			});
+			props.history.push(`/event/${eventID}`);
+		});
+	};
+
 	const onSubmit = (data) => {
 		const { eventCode, name } = data;
-		addEventMember(eventCode, firebase.auth().currentUser.uid); //authContext.currentUser.uid);
+		addEventMember(eventCode, firebase.auth().currentUser.uid);
 	};
 
 	const { register, handleSubmit, watch, errors } = useForm();

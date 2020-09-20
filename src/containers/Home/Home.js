@@ -6,7 +6,7 @@ import firebase from 'firebase';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
-import { GitHub, Menu } from '@material-ui/icons';
+import { GitHub } from '@material-ui/icons';
 
 import logo from '../../assets/logo-t.png';
 import { AuthContext } from '../../Auth';
