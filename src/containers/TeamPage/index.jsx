@@ -8,7 +8,9 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import { Chip } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Hamburger from '../Hamburger/hamburger'
+
+import Hamburger from "../Hamburger/hamburger";
+
 import {
   faDiscord,
   faFacebookMessenger,
@@ -16,9 +18,10 @@ import {
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import { useSnackbar } from "notistack";
+import { Link } from "react-router-dom";
 
-import logo from "../../assets/logo-t.png";
 import { AuthContext } from "../../Auth";
+import logo from "../../assets/logo-t.png";
 
 // const members = ["google@gmail.com", "test@test.edu"];
 // const tags = ["AI", "Community/Connectivity", "Healthcare"];
@@ -57,7 +60,7 @@ const TeamPage = ({ history, location: { state }, match }) => {
       <>
         <FontAwesomeIcon icon={faDiscord} size="lg" />
         <p className="mx-2">
-          <a href="#">discord</a>
+          <a href="https://www.discord.gg">discord</a>
         </p>
 
         <FontAwesomeIcon icon={faFacebookMessenger} size="lg" />
@@ -83,9 +86,21 @@ const TeamPage = ({ history, location: { state }, match }) => {
     }
   };
 
+  const renderRightAction = () => {
+    return (
+      <Navbar.Collapse className="justify-content-end">
+        <Nav>
+          <Link to={`/event/${eventId}/team`}>
+            <Button></Button>
+          </Link>
+        </Nav>
+      </Navbar.Collapse>
+    );
+  };
+
   return (
     <section>
-      <Hamburger />
+      <Hamburger renderRightAction={renderRightAction} />
       <Container className="my-5">
         <div className="row h-100 align-items-center">
           <div className="col">
@@ -116,7 +131,7 @@ const TeamPage = ({ history, location: { state }, match }) => {
             </div>
           </div>
 
-          <div className="col" style={{}}>
+          <div className="col px-5" style={{}}>
             <h1>Actions</h1>
             <p className="lead">Indicate your availability</p>
             <div>

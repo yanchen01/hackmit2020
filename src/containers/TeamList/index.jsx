@@ -200,8 +200,10 @@ const TeamList = (props) => {
           <Image src={logo} className="logo" />
           Lobby
         </Navbar.Brand>
-        <Navbar.Brand className="nav-m" onClick={() => setModalShow(true)}>
-          HackMIT2020
+        <Navbar.Brand className="" onClick={() => setModalShow(true)}>
+          <p className="lead" style={{ marginTop: 13 }}>
+            HackMIT2020
+          </p>
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
           <Nav>
@@ -240,7 +242,11 @@ const TeamList = (props) => {
         dataLength={current.length}
         next={getMoreData}
         hasMore={hasMore}
-        loader={<h2 className="text-center">Finding More Awesome Teams...</h2>}
+        loader={
+          <>
+            <p className="text-center lead">Finding More Awesome Teams...</p>
+          </>
+        }
       >
         <ListGroup variant="flush">
           {!isLoading && teams && teams.length > 0 ? (
@@ -267,7 +273,6 @@ const TeamList = (props) => {
                     <Col sm={2}>
                       <h4>{`${members.length}/${capacity}`}</h4>
                       <Button
-                        size="lg"
                         variant="outline-primary"
                         onClick={() =>
                           props.history.push({
