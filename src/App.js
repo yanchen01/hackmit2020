@@ -22,6 +22,7 @@ import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
 import Profile from "./containers/Profile/Profile.jsx";
 import Settings from "./containers/Settings/Settings.jsx";
+import NoMatchPage from "./containers/NoMatchPage/NoMatchPage";
 
 /* Import Auth */
 import { AuthProvider } from "./Auth";
@@ -51,6 +52,7 @@ const App = () => {
         {/*<GlobalStyles />*/}
         <Router>
           <div>
+            <Switch>
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/home" component={Home} />
@@ -59,10 +61,12 @@ const App = () => {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/join" component={Join} />
             <PrivateRoute exact path="/event" component={CreateEvent} />
+            <Route component={NoMatchPage} />
             <Switch>
               <Route path="/event/:id/teamlist" component={TeamList} />
-              <Route path="/event/:id" component={CreateTeam} />
+              <Route path="/event/:id" component={CreateTeam} />  
             </Switch>
+          </Switch>
           </div>
         </Router>
       </ThemeProvider>
