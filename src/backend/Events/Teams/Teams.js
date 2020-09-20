@@ -37,8 +37,8 @@ const addMemberToTeam = (teamId, newMemberId) => {
     .update({
       members: firebase.firestore.FieldValue.arrayUnion(newMemberId),
     })
-    .then(() => {})
-    .catch((error) => console.log(error));
+    .then((res) => console.log("RES", res))
+    .catch((error) => console.log("ERROR ADDING MEMBER TO TEAM", error));
 };
 
 const removeMemberFromTeam = (teamId, removedMemberId) => {

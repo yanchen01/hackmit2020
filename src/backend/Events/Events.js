@@ -26,8 +26,14 @@ const addEvent = (
       teams: [],
     })
     .then((result) => {
-      console.log(result);
-      return result;
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUserUID)
+        .update({
+          eventsCreated: firebase.firestore.FieldValue.arrayUnion(eventID),
+        })
+        .then(() => {});
     })
     .catch((err) => {
       console.log(err);
@@ -73,12 +79,13 @@ const addEventMember = (eventCode, memberUID) => {
       members: firebase.firestore.FieldValue.arrayUnion(memberUID),
     })
     .then((result) => {
-      console.log(result);
+      return result;
     })
     .catch((err) => {
-      console.log(err);
+      return err;
     });
 };
+
 // const addEventTeam = (event_id, teamUID) => {
 // 	firebase
 // 		.firestore()

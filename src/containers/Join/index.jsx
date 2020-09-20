@@ -21,7 +21,7 @@ import { addEventMember } from "../../backend/Events/Events";
 const Join = () => {
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-    addEventMember(eventCode, firebase.auth().currentUser.uid);
+    const res = addEventMember(eventCode, firebase.auth().currentUser.uid);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();

@@ -171,7 +171,7 @@ const TeamList = ({ location, history, match }) => {
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
           <Nav>
-            <Nav.Link href="\createteam">
+            <Nav.Link href={`/event/${currentEventId}`}>
               <Button>Add Team</Button>
             </Nav.Link>
           </Nav>
