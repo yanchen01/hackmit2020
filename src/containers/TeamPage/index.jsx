@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import { Chip } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Hamburger from '../Hamburger/hamburger'
 import {
   faDiscord,
   faFacebookMessenger,
@@ -73,20 +74,7 @@ const TeamPage = ({ history, location: { state }, match }) => {
 
   return (
     <section>
-      <Navbar bg="light" varient="light">
-        <Navbar.Brand href="/">
-          <Image src={logo} className="logo" />
-          Lobby
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <Nav.Link href="https://github.com/yanchen01/hackmit2020">
-              <GitHub />
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <Hamburger />
       <Container className="my-5">
         <div className="row h-100 align-items-center">
           <div className="col">
