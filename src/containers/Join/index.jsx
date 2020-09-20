@@ -11,16 +11,29 @@ import firebase from "firebase";
 import "./style.css";
 import { addEventMember } from "../../backend/Events/Events";
 
-const Join = () => {
+import { AuthContext } from "../../Auth";
+
+import { Redirect } from "react-router-dom";
+
+const Join = (props) => {
+  const authContext = useContext(AuthContext);
+  let unauthenticated = null;
+
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-    addEventMember(eventCode, firebase.auth().currentUser.uid);
+    addEventMember(eventCode, memberID);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
 
+  useEffect(() => {
+    unauthenticated = authContext.currentUser ? null : <Redirect to="/login" />;
+    console.log("Auth: ", authContext.currentUser);
+  }, []);
+
   return (
     <section className="join-event-page m-xl-5">
+      {unauthenticated}
       <Container>
         <h1>Join Event</h1>
 
