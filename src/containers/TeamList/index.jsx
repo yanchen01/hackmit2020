@@ -273,7 +273,7 @@ const TeamList = (props) => {
                           props.history.push({
                             pathname: `/team`,
                             state: {
-                              eventId,
+                              team: item,
                             },
                           })
                         }
