@@ -11,7 +11,7 @@ import {
   faPlusCircle,
   faHamburger,
   faCog,
-  faBars
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalStyles, darkTheme } from "./styles";
@@ -45,7 +45,15 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-library.add(fab, faTimes, faArrowRight, faPlusCircle, faHamburger, faCog, faBars);
+library.add(
+  fab,
+  faTimes,
+  faArrowRight,
+  faPlusCircle,
+  faHamburger,
+  faCog,
+  faBars
+);
 
 const App = () => {
   const authContext = useContext(AuthContext);
