@@ -89,7 +89,8 @@ const TeamList = (props) => {
           <p>
             <h3>Welcome to {props.eventName}!</h3>
           </p>
-          <p>{props.category}: {props.description}</p>
+          <p>Category: {props.category}</p>
+          <p>Description: {props.description}</p>
           <h3> Connect With Us: </h3>
           <ul>
             <li>
@@ -229,7 +230,7 @@ const TeamList = (props) => {
         onHide={() => setModalShow(false)}
         eventName={event.name}
         category={event.category}
-        description={faker.lorem.words(13)}
+        description={faker.lorem.words(16)}
         link={event.link}
         eventCode={event.eventCode}
         location={event.location}
