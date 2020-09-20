@@ -235,7 +235,7 @@ const TeamList = (props) => {
         eventEnd={event.eventEnd}
       />
       <br />
-      <h3 className="text-center">Find your Team:</h3>
+      
 
       <React.Fragment key="left">
         <Drawer
