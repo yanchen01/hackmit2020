@@ -1,11 +1,17 @@
-import React, { useContext, useEffect } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import firebase from 'firebase';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { ThemeProvider } from 'styled-components';
-import { faTimes, faArrowRight, faPlusCircle, faHamburger, faCog } from '@fortawesome/free-solid-svg-icons';
+import React, { useContext, useEffect } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import firebase from "firebase";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { ThemeProvider } from "styled-components";
+import {
+  faTimes,
+  faArrowRight,
+  faPlusCircle,
+  faHamburger,
+  faCog,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalStyles, darkTheme } from "./styles";
 
@@ -41,40 +47,38 @@ firebase.initializeApp(firebaseConfig);
 library.add(fab, faTimes, faArrowRight, faPlusCircle, faHamburger, faCog);
 
 const App = () => {
-	const authContext = useContext(AuthContext);
-	useEffect(
-		() => {
-			if (firebase.auth().currentUser) {
-				authContext.setCurrentUser(firebase.auth().currentUser);
-				console.log('Auth Context: ', authContext.currentUser);
-			}
-		},
-		[ firebase.auth().currentUser ]
-	);
-	return (
-		<ThemeProvider theme={darkTheme}>
-			{/*<GlobalStyles />*/}
-			<Router>
-				<div>
-					<Switch>
-						<Route exact path="/login" component={Login} />
-						<PrivateRoute exact path="/" component={Home} />
-						<PrivateRoute exact path="/home" component={Home} />
-						<Route exact path="/profile" component={Profile} />
-						<Route exact path="/settings" component={Settings} />
-						<Route exact path="/signup" component={SignUp} />
-						<Route exact path="/join" component={Join} />
-						<PrivateRoute exact path="/event" component={CreateEvent} />
-						{/*<Route component={NoMatchPage} />*/}
-						<Switch>
-							<Route path="/event/:id/teamlist" component={TeamList} />
-							<Route path="/event/:id" component={CreateTeam} />
-						</Switch>
-					</Switch>
-				</div>
-			</Router>
-		</ThemeProvider>
-	);
+  const authContext = useContext(AuthContext);
+  useEffect(() => {
+    if (firebase.auth().currentUser) {
+      authContext.setCurrentUser(firebase.auth().currentUser);
+      console.log("Auth Context: ", authContext.currentUser);
+    }
+  }, [firebase.auth().currentUser]);
+  return (
+    <ThemeProvider theme={darkTheme}>
+      {/*<GlobalStyles />*/}
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact path="/home" component={Home} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/join" component={Join} />
+            <PrivateRoute exact path="/event" component={CreateEvent} />
+            {/*<Route component={NoMatchPage} />*/}
+            <Route exact path="/team" component={TeamPage} />
+            <Switch>
+              <Route path="/event/:id/teamlist" component={TeamList} />
+              <Route path="/event/:id" component={CreateTeam} />
+            </Switch>
+          </Switch>
+        </div>
+      </Router>
+    </ThemeProvider>
+  );
 };
 
 export default App;
