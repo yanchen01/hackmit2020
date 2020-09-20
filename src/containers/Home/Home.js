@@ -23,10 +23,6 @@ const Home = () => {
 		console.log('Home from Auth: ', authContext.currentUser);
 		let currentUser = authContext.currentUser;
 		if (currentUser) {
-			// Getting current events list
-			// const currentEvents = getEventsCreated(currentUser.uid);
-
-			// authContext.setCurrentUser(currentUser);
 			const { displayName, email, emailVerified } = currentUser;
 			setUser(displayName);
 		}
