@@ -5,44 +5,36 @@ import {
   FormControl,
   Container,
   Button,
-  Navbar,
-  Image,
-  Nav,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import firebase from "firebase";
-
 import "./style.css";
-import { GitHub } from "@material-ui/icons";
-
-import logo from "../../assets/logo-t.png";
 import { addEventMember } from "../../backend/Events/Events";
 
-const Join = () => {
+import { AuthContext } from "../../Auth";
+
+import { Redirect } from "react-router-dom";
+
+const Join = (props) => {
+  const authContext = useContext(AuthContext);
+  let unauthenticated = null;
+
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-    const res = addEventMember(eventCode, firebase.auth().currentUser.uid);
+    addEventMember(eventCode, memberID);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
 
+  useEffect(() => {
+    unauthenticated = authContext.currentUser ? null : <Redirect to="/login" />;
+    console.log("Auth: ", authContext.currentUser);
+  }, []);
+
   return (
-    <section className="join-event-page">
-      <Navbar bg="light" varient="light">
-        <Navbar.Brand href="/">
-          <Image src={logo} className="logo" />
-          Lobby
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <Nav.Link href="https://github.com/yanchen01/hackmit2020">
-              <GitHub />
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Container className="my-5">
+    <section className="join-event-page m-xl-5">
+      {unauthenticated}
+      <Container>
         <h1>Join Event</h1>
 
         <div className="mt-lg-3 mb-lg-3">

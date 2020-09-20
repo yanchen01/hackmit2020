@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+import React, { useState, useEffect, useContext } from "react";
+=======
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+>>>>>>> edb3632e657c701f20b9abb97303de9f8f31b422
 import {
   Navbar,
   Container,
@@ -8,7 +12,10 @@ import {
   ListGroup,
   Button,
   Modal,
+<<<<<<< HEAD
+=======
   Nav, Image,
+>>>>>>> edb3632e657c701f20b9abb97303de9f8f31b422
 } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import faker from "faker";
@@ -165,6 +172,7 @@ const TeamList = ({ location, history, match }) => {
 
   return (
     <div>
+      {unauthenticated}
       <Navbar className="" expand="lg" variant="light" bg="light">
         <FontAwesomeIcon
           onClick={toggleDrawer("left", true)}

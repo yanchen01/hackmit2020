@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, Link } from 'react';
 import { Navbar, Container, Row, Col, ListGroup, Button, Image } from 'react-bootstrap';
 import faker from 'faker';
 import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getEventsCreated } from '../../backend/User/User';
 import firebase from 'firebase';
 import { AuthContext } from '../../Auth';
 import logo from '../../assets/logo-t.png';
@@ -58,7 +57,7 @@ const Profile = () => {
 				<Container fluid>
 					<Row>
 						<Col>
-							<h2 className="text-center">Lobby</h2>
+              <Navbar.Brand id="logo" href="/" className="mx-auto"><Image src={logo} className="logo" />Lobby</Navbar.Brand>
 						</Col>
 					</Row>
 					<Row>
@@ -91,7 +90,7 @@ const Profile = () => {
 	return (
 		<div>
 			<Navbar className="" expand="lg" variant="light" bg="light">
-				<FontAwesomeIcon onClick={toggleDrawer('left', true)} className="" icon="hamburger" />
+				<FontAwesomeIcon onClick={toggleDrawer('left', true)} className="" icon="bars" />
 				<Navbar.Brand href="/" className="mx-auto"><Image src={logo} className="logo" />Lobby</Navbar.Brand>
 			</Navbar>
 			<Container className="w-100 h-100">

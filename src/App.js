@@ -11,6 +11,7 @@ import {
   faPlusCircle,
   faHamburger,
   faCog,
+  faBars
 } from "@fortawesome/free-solid-svg-icons";
 
 import { GlobalStyles, darkTheme } from "./styles";
@@ -44,7 +45,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-library.add(fab, faTimes, faArrowRight, faPlusCircle, faHamburger, faCog);
+library.add(fab, faTimes, faArrowRight, faPlusCircle, faHamburger, faCog, faBars);
 
 const App = () => {
   const authContext = useContext(AuthContext);
@@ -66,7 +67,7 @@ const App = () => {
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/join" component={Join} />
+            <Route exact path="/join/:id" component={Join} />
             <PrivateRoute exact path="/event" component={CreateEvent} />
             {/*<Route component={NoMatchPage} />*/}
             <Route exact path="/team" component={TeamPage} />

@@ -86,6 +86,19 @@ const addEventMember = (eventCode, memberUID) => {
     });
 };
 
+const getEventById = (eventID) => {
+  firebase
+    .firestore()
+    .collection("events")
+    .doc(eventID)
+    .get()
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 // const addEventTeam = (event_id, teamUID) => {
 // 	firebase
 // 		.firestore()
@@ -102,4 +115,4 @@ const addEventMember = (eventCode, memberUID) => {
 // 		});
 // };
 
-export { addEvent, editEvent, addEventMember };
+export { addEvent, editEvent, addEventMember, getEventById };
