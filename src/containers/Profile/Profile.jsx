@@ -37,10 +37,16 @@ const Profile = () => {
 
     if (currentUser) {
       authContext.setCurrentUser(currentUser);
-      const fEvents = getEventsCreated(authContext.currentUser.uid);
-      setEvents(fEvents);
-      setCurrentUser(currentUser);
-      console.log("Profile Current User: ", currentUser);
+      // const eventsCreated = getEventsCreated(authContext.currentUser.uid);
+      const eventsJoined = getEventsJoined(authContext.currentUser.uid);
+      // console.log(
+      //   "Profile Current User: ",
+      //   currentUser,
+      //   "EVENTS",
+      //   eventsCreated,
+      //   "EVENTS JOINED",
+      //   eventsJoined
+      // );
     } else {
       console.log(currentUser);
     }
@@ -70,7 +76,7 @@ const Profile = () => {
   });
 
   const handleEditDescription = () => {
-    setIsEditingDescription(true);
+    setIsEditingDescription((v) => !v);
   };
 
   const list = (anchor) => (
@@ -117,6 +123,15 @@ const Profile = () => {
 
   // ^^^^^^^^^^^^^
 
+  const renderTeamRows = () => {
+    return (
+      <div className="mt-5">
+        <h4>Teams</h4>
+        <List component="nav" aria-labelledby="nested-list-subheader"></List>
+      </div>
+    );
+  };
+
   return (
     <div>
       <Navbar className="" expand="lg" variant="light" bg="light">
@@ -154,7 +169,9 @@ const Profile = () => {
             />
           </Row>
           <Row className="justify-content-md-center mt-3 post">
-            <h1>{authContext?.currentUser?.displayName ?? <Redirect to="/home" />}</h1>
+            <h1>
+              {authContext?.currentUser?.displayName ?? <Redirect to="/home" />}
+            </h1>
           </Row>
 
           {isEditingDescription ? (
@@ -173,21 +190,31 @@ const Profile = () => {
               </Row>
 
               <Row className="mt-3">
-                <Button onClick={() => {}}>Submit new description</Button>
+                <Button
+                  onClick={() => {
+                    setDescription(description);
+                    setIsEditingDescription(false);
+                  }}
+                >
+                  Submit new description
+                </Button>
               </Row>
             </>
           ) : (
             <>
               <Row className="justify-content-md-center mt-3 post">
-                <p>{faker.lorem.words(40)}</p>
+                <p>{description}</p>
               </Row>
-              <Row className="mt-3 post">
+              <Row className="mt-3 justify-content-md-center post">
                 <Button onClick={() => handleEditDescription()}>
-                  Edit Description
+                  {description.length > 0
+                    ? `Edit Description`
+                    : `Add Description`}
                 </Button>
               </Row>
             </>
           )}
+          {renderTeamRows()}
         </div>
       </Container>
     </div>
