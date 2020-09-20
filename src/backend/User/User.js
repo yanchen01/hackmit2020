@@ -8,7 +8,7 @@ const addUser = (uid, email, fullName) => {
   });
 };
 
-const getEventsJoined = (uid) => {
+const getEventsCreated = (uid) => {
   // make a query to events user created
   const db = firebase.firestore();
   let eventsData = [];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Navbar,
   Container,
@@ -14,12 +14,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./index.css";
 import { getAllTeamsInEvent } from "../../backend/Events/Teams/Teams";
 
+import { AuthContext } from "../../Auth";
+import { Redirect } from "react-router-dom";
+
 // Drawer/HAMBURGER menu
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 
 const TeamList = () => {
+  const authContext = useContext(AuthContext);
+  let unauthenticated = null;
+
+  useEffect(() => {
+    unauthenticated = authContext.currentUser ? null : <Redirect to="/login" />;
+    console.log("Auth: ", authContext.currentUser);
+  }, []);
+
   // Hamburger
   function EventModal(props) {
     console.log(getAllTeamsInEvent("5bdd5ee5-5f7b-42af-a909-ec98d39becd7"));
@@ -148,6 +159,7 @@ const TeamList = () => {
 
   return (
     <div>
+      {unauthenticated}
       <Navbar className="" expand="lg" variant="light" bg="light">
         <FontAwesomeIcon
           onClick={toggleDrawer("left", true)}
