@@ -88,7 +88,8 @@ const getAllTeamsInEvent = (eventId) =>
     .where("eventId", "==", eventId)
     .get()
     .then((querySnapshot) => {
-      return querySnapshot;
+      console.log(querySnapshot)
+      // return querySnapshot;
     })
     .catch((error) => console.log(error));
 

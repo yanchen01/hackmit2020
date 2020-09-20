@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Container, Button, Row, Navbar, Image, Nav } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -14,7 +14,15 @@ import { GitHub } from '@material-ui/icons';
 const Home = () => {
 	const history = useHistory();
 	const authContext = useContext(AuthContext);
-	authContext.setCurrentUser(firebase.auth().currentUser);
+
+	useEffect(() => {
+		let currentUser = firebase.auth().currentUser;
+
+		if (currentUser) {
+			authContext.setCurrentUser(currentUser);
+			console.log('CurrentUserLogged: ', currentUser);
+		}
+	}, []);
 
 	return (
 		<section className="create-event-page">
