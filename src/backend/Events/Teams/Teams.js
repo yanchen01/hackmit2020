@@ -98,8 +98,8 @@ const getAllTeamsByUserID = (userId) =>
 export {
   createTeam,
   getAllTeamsInEvent,
-  removeMemberFromTeam,
+  // removeMemberFromTeam,
   addMemberToTeam,
-  addApplicationToTeam,
+  // addApplicationToTeam,
   updateTeam,
 };
