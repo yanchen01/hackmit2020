@@ -24,6 +24,19 @@ const Home = () => {
     }
   }, []);
 
+  const onLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then((res) => {
+        console.log("signed out", res);
+        authContext.setCurrentUser(null);
+      })
+      .catch((err) => {
+        console.log("error signing out", err);
+      });
+  };
+
   return (
     <section className="create-event-page">
       <Navbar bg="light" varient="light">
@@ -63,6 +76,11 @@ const Home = () => {
             size="lg"
           >
             Create an Event
+          </Button>
+        </Row>
+        <Row className="mt-5">
+          <Button onClick={onLogout} variant="danger" size="lg">
+            Sign out
           </Button>
         </Row>
       </Container>
