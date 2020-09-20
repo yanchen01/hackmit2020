@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firebase from 'firebase';
 import { AuthContext } from '../../Auth';
 import logo from '../../assets/logo-t.png';
+import { getEventsCreated, getEventsJoined } from '../../backend/User/User';
 
 // Drawer/HAMBURGER menu
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,6 +46,9 @@ const Profile = () => {
 			width: 'auto'
 		}
 	});
+
+	const events = getEventsCreated(authContext.currentUser.uid);
+	console.log("Hello: " + events);
 
 	const list = (anchor) => (
 		<div
