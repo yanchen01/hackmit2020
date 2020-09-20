@@ -5,10 +5,17 @@ import {
   FormControl,
   Container,
   Button,
+  Navbar,
+  Image,
+  Nav,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import firebase from "firebase";
+
 import "./style.css";
+import { GitHub } from "@material-ui/icons";
+
+import logo from "../../assets/logo-t.png";
 
 const Join = () => {
   const onSubmit = (data) => {
@@ -18,9 +25,22 @@ const Join = () => {
   const { register, handleSubmit, watch, errors } = useForm();
 
   return (
-    <section className="join-event-page m-xl-5">
-
-      <Container>
+    <section className="join-event-page">
+      <Navbar bg="light" varient="light">
+        <Navbar.Brand href="/">
+          <Image src={logo} className="logo" />
+          Lobby
+        </Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Nav>
+            <Nav.Link href="https://github.com/yanchen01/hackmit2020">
+              <GitHub />
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Container className="my-5">
         <h1>Join Event</h1>
 
         <div className="mt-lg-3 mb-lg-3">
