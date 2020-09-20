@@ -116,7 +116,7 @@ const CreateEvent = (props) => {
   return (
     <section className="create-event-page">
       <Navbar bg="light" varient="light">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <Image src={logo} className="logo" />
           Lobby
         </Navbar.Brand>
