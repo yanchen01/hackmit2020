@@ -50,11 +50,25 @@ const editEvent = (eventID, updateObj) => {
     });
 };
 
-const addEventMember = (eventID, memberUID) => {
+const addEventMember = (eventCode, memberUID) => {
+  // firebase
+  //   .firestore()
+  //   .collection("events")
+  //   .doc(eventID)
+  //   .update({
+  //     members: firebase.firestore.FieldValue.arrayUnion(memberUID),
+  //   })
+  //   .then((result) => {
+  //     console.log(result);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
   firebase
     .firestore()
-    .collection("events")
-    .doc(eventID)
+    .collection("teams")
+    .where("eventCode", "==", eventCode)
+    .get()
     .update({
       members: firebase.firestore.FieldValue.arrayUnion(memberUID),
     })
