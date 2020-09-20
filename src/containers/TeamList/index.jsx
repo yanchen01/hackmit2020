@@ -3,6 +3,7 @@ import { Navbar, Container, Row, Col, ListGroup, Button, Modal, Nav, Image } fro
 import InfiniteScroll from 'react-infinite-scroll-component';
 import faker from 'faker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import firebase from 'firebase';
 
 import { Link } from 'react-router-dom';
 
@@ -19,8 +20,27 @@ import logo from '../../assets/logo-t.png';
 
 const TeamList = (props) => {
 	const [ currentTeams, setCurrentTeams ] = useState([]);
+	const [ teams, setTeams ] = useState([]);
 	const { location: { state } } = props.history;
 	const currentEventId = props.match.params.id;
+
+	useEffect(() => {
+		const teamsList = [];
+		firebase
+			.firestore()
+			.collection('teams')
+			.where('eventId', '==', currentEventId)
+			.get()
+			.then((querySnapshot) => {
+				querySnapshot.forEach((element) => {
+					teamsList.push(element.data());
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+		setTeams(teamsList);
+	}, []);
 
 	// Hamburger
 	function EventModal(props) {
