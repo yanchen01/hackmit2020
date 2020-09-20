@@ -34,6 +34,7 @@ const testEmailRegex = RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-
 
 const CreateTeam = (props) => {
 	const authContext = useContext(AuthContext);
+	let unauthenticated = null;
 
 	const [ tags, setTags ] = useState(TAGS);
 	const [ tagToAdd, setTagToAdd ] = useState([]);
@@ -75,6 +76,11 @@ const CreateTeam = (props) => {
 	};
 
 	const { register, handleSubmit, watch, setValue, errors } = useForm();
+
+	useEffect(() => {
+		unauthenticated = authContext.currentUser ? null : <Redirect to="/login" />;
+		console.log('Auth: ', authContext.currentUser);
+	}, []);
 
 	// temp
 	const MAX_MEMBERS = 4;
@@ -129,8 +135,6 @@ const CreateTeam = (props) => {
 			});
 		}
 	};
-
-	const unauthenticated = authContext.currentUser ? null : <Redirect to="/login" />;
 
 	return (
 		<section className="create-event-page m-xl-5">
