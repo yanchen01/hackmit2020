@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getEventsCreated } from '../../backend/User/User';
 import firebase from 'firebase';
 import { AuthContext } from '../../Auth';
+import logo from '../../assets/logo-t.png';
 
 // Drawer/HAMBURGER menu
 import { makeStyles } from '@material-ui/core/styles';
@@ -91,7 +92,7 @@ const Profile = () => {
 		<div>
 			<Navbar className="" expand="lg" variant="light" bg="light">
 				<FontAwesomeIcon onClick={toggleDrawer('left', true)} className="" icon="hamburger" />
-				<Navbar.Brand className="mx-auto">Lobby</Navbar.Brand>
+				<Navbar.Brand href="/" className="mx-auto"><Image src={logo} className="logo" />Lobby</Navbar.Brand>
 			</Navbar>
 			<Container className="w-100 h-100">
 				<React.Fragment key="left">
@@ -103,12 +104,13 @@ const Profile = () => {
 				<div className="center">
 					<Row className="justify-content-md-center mt-3 post">
 						<Image
-							src={authContext.currentUser ? faker.image.avatar() : 'default-profile-picture.jpg'}
+              id="profile-pic" 
+							src={authContext.currentUser ? authContext.currentUser.photoURL : 'default-profile-picture.jpg'}
 							roundedCircle
 						/>
 					</Row>
 					<Row className="justify-content-md-center mt-3 post">
-						<h1>{faker.name.firstName()}</h1>
+						<h1>{authContext.currentUser.displayName}</h1>
 					</Row>
 
 					<Row className="justify-content-md-center mt-3 post">
