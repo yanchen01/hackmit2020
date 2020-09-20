@@ -10,8 +10,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 const Home = () => {
 	const history = useHistory();
 	const authContext = useContext(AuthContext);
-  authContext.setCurrentUser(firebase.auth().currentUser);
-  console.log(authContext.currentUser);
+	authContext.setCurrentUser(firebase.auth().currentUser);
 
 	return (
 		<section className="create-event-page m-xl-5">
