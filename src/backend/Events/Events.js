@@ -98,5 +98,20 @@ const getEventById = (eventID) => {
       console.log(err);
     });
 };
+// const addEventTeam = (event_id, teamUID) => {
+// 	firebase
+// 		.firestore()
+// 		.collection('events')
+// 		.doc(event_id)
+// 		.update({
+// 			teams: firebase.firestore.FieldValue.arrayUnion(teamUID)
+// 		})
+// 		.then((result) => {
+// 			console.log(result);
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
 
 export { addEvent, editEvent, addEventMember, getEventById };
