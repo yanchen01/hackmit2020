@@ -3,6 +3,7 @@ import { Navbar, Container, Row, Col, ListGroup, Button, Image } from 'react-boo
 import faker from 'faker';
 import './index.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {getEventsCreated} from '../../backend/User/User';
 
 // Drawer/HAMBURGER menu
 import { makeStyles } from '@material-ui/core/styles';
