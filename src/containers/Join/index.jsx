@@ -9,18 +9,17 @@ import {
 import { useForm } from "react-hook-form";
 import firebase from "firebase";
 import "./style.css";
-import { addEventMember } from "../../backend/Events/Events";
 
 const Join = () => {
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-    addEventMember(eventCode, firebase.auth().currentUser.uid);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
 
   return (
     <section className="join-event-page m-xl-5">
+
       <Container>
         <h1>Join Event</h1>
 
