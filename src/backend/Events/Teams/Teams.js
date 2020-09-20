@@ -37,8 +37,8 @@ const addMemberToTeam = (teamId, newMemberId) => {
     .update({
       members: firebase.firestore.FieldValue.arrayUnion(newMemberId),
     })
-    .then(() => {})
-    .catch((error) => console.log(error));
+    .then((res) => console.log("RES", res))
+    .catch((error) => console.log("ERROR ADDING MEMBER TO TEAM", error));
 };
 
 // const removeMemberFromTeam = (teamId, removedMemberId) => {
@@ -81,17 +81,25 @@ const createTeam = (
     })
     .catch((error) => console.log(error));
 
-const getAllTeamsInEvent = (eventId) =>
+const getAllTeamsInEvent = (eventId) => {
+  const teams = [];
+
   firebase
     .firestore()
     .collection("teams")
     .where("eventId", "==", eventId)
     .get()
     .then((querySnapshot) => {
-      console.log(querySnapshot)
-      // return querySnapshot;
+      querySnapshot.forEach((element) => {
+        teams.push(element.data());
+      });
     })
-    .catch((error) => console.log(error));
+    .catch((err) => {
+      console.log(err);
+    });
+
+  return teams;
+};
 
 const getAllTeamsByUserID = (userId) =>
   firebase.firestore().collection("teams").where("members", "contains", userId);

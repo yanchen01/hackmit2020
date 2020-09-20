@@ -20,7 +20,16 @@ html, body, #app, #app>div {
     transform: translate(-50%, -50%);
   }
 
+  #profile-pic {
+    max-width: 275px;
+    max-height: 275px;
+  }
+
 .profile {
     max-width: 400px;
     max-height: 400px;
+}
+
+#logo {
+  color: black;
 }

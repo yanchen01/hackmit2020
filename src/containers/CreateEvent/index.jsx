@@ -28,7 +28,7 @@ const MAX_MEMBERS_PER_TEAM_OPTIONS = [
   "Max required",
 ];
 
-const CreateEvent = (props) => {
+const CreateEvent = ({ history }) => {
   const [isMaxMembersPerTeamEnabled, setIsMaxMembersPerTeamEnabled] = useState(
     false
   );
@@ -71,9 +71,12 @@ const CreateEvent = (props) => {
       apiData.categorySingleSelection
     );
 
-    console.log();
-
-    props.history.push(`${props.history.location.pathname}/${apiData.eventID}`);
+    history.push({
+      pathname: `${history.location.pathname}/${apiData.eventID}/teamlist`,
+      state: {
+        eventId: apiData.eventID,
+      },
+    });
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
@@ -116,7 +119,7 @@ const CreateEvent = (props) => {
   return (
     <section className="create-event-page">
       <Navbar bg="light" varient="light">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <Image src={logo} className="logo" />
           Lobby
         </Navbar.Brand>

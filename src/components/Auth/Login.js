@@ -4,13 +4,14 @@ import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Image, Nav, Navbar } from "react-bootstrap";
 import { GitHub } from "@material-ui/icons";
+import { renderToStaticMarkup } from "react-dom/server";
 
 import { AuthContext } from "../../Auth";
 import "./loginStyles.css";
 import logo from "../../assets/logo-t.png";
 import card from "../../assets/card.png";
 import AnimatedCard from "../AnimatedCard";
-
+import Bg from "../Bg";
 /* Event Handler*/
 import { addUser } from "../../backend/User/User";
 
@@ -39,6 +40,8 @@ const Login = ({ history }) => {
     return <Redirect to="/" />;
   }
 
+  const svgString = encodeURIComponent(renderToStaticMarkup(<Bg />));
+
   return (
     <section>
       <Navbar bg="light" varient="light">
@@ -58,9 +61,24 @@ const Login = ({ history }) => {
       <div className="container" style={{ height: "80vh" }}>
         <div className="row h-100 align-items-center">
           <div className="col">
+            <div
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: -250,
+                width: "220%",
+                height: "220%",
+                zIndex: -1,
+              }}
+            >
+              <Bg />
+            </div>
             <div className="pb-3">
               <h1>Lobby</h1>
               <h2>Find teammates really fast.</h2>
+              <p className="lead" style={{ color: "#E5588B" }}>
+                A HackMIT 2020 Project
+              </p>
             </div>
             <div>
               <StyledFirebaseAuth

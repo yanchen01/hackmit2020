@@ -8,9 +8,22 @@ const addUser = (uid, email, fullName) => {
   });
 };
 
+/**
+ *
+ * @param email: string             A valid email
+ * @returns {Promise<T | string[]>} If string[] is empty, user doesn't exist
+ */
+const checkUserAlreadyExists = (email) =>
+  firebase
+    .auth()
+    .fetchSignInMethodsForEmail(email)
+    .then((res) => res)
+    .catch((err) => console.log("Error fetching email", err));
+
 const getEventsCreated = (uid) => {
   // make a query to events user created
   const db = firebase.firestore();
+  let eventIDList = [];
   let eventsData = [];
 
   db.collection("users")
@@ -28,7 +41,6 @@ const getEventsCreated = (uid) => {
             console.log(err);
           });
       });
-      return eventsData;
     });
 };
 
@@ -56,4 +68,4 @@ const getEventsJoined = (uid) => {
     });
 };
 
-export { addUser, getEventsCreated, getEventsJoined };
+export { addUser, getEventsCreated, getEventsJoined, checkUserAlreadyExists };

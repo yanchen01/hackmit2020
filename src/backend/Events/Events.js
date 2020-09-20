@@ -56,28 +56,33 @@ const editEvent = (eventID, updateObj) => {
     });
 };
 
-const addEventMember = async (eventCode, memberUID) => {
-  const event = await firebase
+const addEventMember = (eventCode, memberUID) => {
+  // firebase
+  //   .firestore()
+  //   .collection("events")
+  //   .doc(eventID)
+  //   .update({
+  //     members: firebase.firestore.FieldValue.arrayUnion(memberUID),
+  //   })
+  //   .then((result) => {
+  //     console.log(result);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  firebase
     .firestore()
     .collection("teams")
     .where("eventCode", "==", eventCode)
-    .get();
-
-  event
+    .get()
     .update({
       members: firebase.firestore.FieldValue.arrayUnion(memberUID),
     })
     .then((result) => {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(memberUID)
-        .update({
-          eventsJoined: firebase.firestore.FieldValue.arrayUnion(event.id),
-        });
+      return result;
     })
     .catch((err) => {
-      console.log(err);
+      return err;
     });
 };
 
