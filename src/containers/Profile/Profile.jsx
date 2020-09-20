@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import { Navbar, Container, Row, Col, ListGroup, Button, Image } from 'react-bootstrap';
 import faker from 'faker';
 import './index.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {getEventsCreated} from '../../backend/User/User';
+import firebase from "firebase";
+import { AuthContext } from "../../Auth";
 
 // Drawer/HAMBURGER menu
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,6 +16,19 @@ import List from '@material-ui/core/List';
 
 
 const Profile = () => {
+
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    let currentUser = firebase.auth().currentUser;
+
+    if (currentUser) {
+      authContext.setCurrentUser(currentUser);
+      console.log("CurrentUserLogged: ", currentUser);
+    } else {
+      console.log(currentUser);
+    }
+  }, []);
 
     // Hamburger
   const [anchor, setAnchor] = useState(false);

@@ -114,6 +114,10 @@ const TeamList = ({ location, history, match }) => {
           <Row>
             <Col>
               <hr />
+			  <p>
+				  <a href="/profile">
+				  Profile</a>
+				  </p>
               <p>
                 <a href="/settings">
                   <FontAwesomeIcon icon="cog" /> Settings
