@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { InputGroup, FormControl, Container, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import './style.css';
+import Hamburger from '../Hamburger/hamburger';
 // import { addEventMember } from '../../backend/Events/Events';
 import firebase from 'firebase';
 
@@ -48,6 +49,8 @@ const Join = (props) => {
 	}, []);
 
 	return (
+	<div>
+		<Hamburger />
 		<section className="join-event-page m-xl-5">
 			{unauthenticated}
 			<Container>
@@ -88,6 +91,7 @@ const Join = (props) => {
 				</div>
 			</Container>
 		</section>
+	</div>
 	);
 };
 

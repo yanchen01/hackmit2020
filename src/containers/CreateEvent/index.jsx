@@ -18,6 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { v4 as uuidv4 } from "uuid";
 import { GitHub } from "@material-ui/icons";
+import Hamburger from '../Hamburger/hamburger';
 
 import { addEvent } from "../../backend/Events/Events";
 import logo from "../../assets/logo-t.png";
@@ -117,20 +118,7 @@ const CreateEvent = ({ history }) => {
 
   return (
     <section className="create-event-page">
-      <Navbar bg="light" varient="light">
-        <Navbar.Brand href="/">
-          <Image src={logo} className="logo" />
-          Lobby
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <Nav.Link href="https://github.com/yanchen01/hackmit2020">
-              <GitHub />
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <Hamburger />
       <Container className="my-5">
         <h1>Create Event</h1>
 

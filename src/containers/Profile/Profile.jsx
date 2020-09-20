@@ -14,10 +14,9 @@ import faker from "faker";
 import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "firebase";
-import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import { Redirect } from "react-router-dom";
+import Hamburger from '../Hamburger/hamburger'
 
 import { AuthContext } from "../../Auth";
 import logo from "../../assets/logo-t.png";
@@ -52,76 +51,9 @@ const Profile = () => {
     }
   }, []);
 
-  // Hamburger
-  const [anchor, setAnchor] = useState(false);
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setAnchor(open);
-  };
-
-  const classes = makeStyles({
-    list: {
-      width: 550,
-    },
-    fullList: {
-      width: "auto",
-    },
-  });
-
   const handleEditDescription = () => {
     setIsEditingDescription((v) => !v);
   };
-
-  const list = (anchor) => (
-    <div
-      className="dr"
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        <Container fluid>
-          <Row>
-            <Col>
-              <Navbar.Brand id="logo" href="/" className="mx-auto">
-                <Image src={logo} className="logo" />
-                Lobby
-              </Navbar.Brand>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <hr />
-              <h3>Current Events:</h3>
-              <ul>
-                <li>Standford Hacks 2020</li>
-                <li>Cake Cooking Competition</li>
-                <li>FizzBuzz Showdown</li>
-              </ul>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <hr />
-              <p>
-                <a href="/settings"> Settings</a>
-              </p>
-              <p>Sign Out</p>
-            </Col>
-          </Row>
-        </Container>
-      </List>
-    </div>
-  );
-
-  // ^^^^^^^^^^^^^
 
   const renderTeamRows = () => {
     return (
@@ -134,27 +66,8 @@ const Profile = () => {
 
   return (
     <div>
-      <Navbar className="" expand="lg" variant="light" bg="light">
-        <FontAwesomeIcon
-          onClick={toggleDrawer("left", true)}
-          className=""
-          icon="bars"
-        />
-        <Navbar.Brand href="/" className="mx-auto">
-          <Image src={logo} className="logo" />
-          Lobby
-        </Navbar.Brand>
-      </Navbar>
+      <Hamburger />
       <Container className="w-100 h-100">
-        <React.Fragment key="left">
-          <Drawer
-            anchor="left"
-            open={anchor}
-            onClose={toggleDrawer("left", false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
 
         <div className="center">
           <Row className="justify-content-md-center mt-3 post">

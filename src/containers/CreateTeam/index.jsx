@@ -8,6 +8,7 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { useSnackbar } from 'notistack';
 import firebase from 'firebase';
 import { v4 as uuidv4 } from 'uuid';
+import Hamburger from '../Hamburger/hamburger';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { Redirect } from 'react-router-dom';
@@ -149,20 +150,7 @@ const CreateTeam = (props) => {
 	return (
 		<section className="create-event-page">
 			{unauthenticated}
-			<Navbar bg="light" varient="light">
-				<Navbar.Brand href="/">
-					<Image src={logo} className="logo" />
-					Lobby
-				</Navbar.Brand>
-				<Navbar.Toggle />
-				<Navbar.Collapse className="justify-content-end">
-					<Nav>
-						<Nav.Link href="https://github.com/yanchen01/hackmit2020">
-							<GitHub />
-						</Nav.Link>
-					</Nav>
-				</Navbar.Collapse>
-			</Navbar>
+			<Hamburger />
 			<Container className="my-5">
 				<h1>Create Team</h1>
 
