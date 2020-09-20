@@ -111,7 +111,7 @@ const Profile = () => {
 
         <div className="center">
             <Row className="justify-content-md-center mt-3 post">
-                <Image src={faker.image.avatar()} roundedCircle />
+                <Image src={authContext.currentUser ? faker.image.avatar() : "default-profile-picture.jpg"} roundedCircle />
             </Row>
             <Row className="justify-content-md-center mt-3 post">
                 <h1>{faker.name.firstName()}</h1>
