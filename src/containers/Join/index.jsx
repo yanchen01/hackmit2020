@@ -16,10 +16,12 @@ import "./style.css";
 import { GitHub } from "@material-ui/icons";
 
 import logo from "../../assets/logo-t.png";
+import { addEventMember } from "../../backend/Events/Events";
 
 const Join = () => {
   const onSubmit = (data) => {
     const { eventCode, name } = data;
+    addEventMember(eventCode, firebase.auth().currentUser.uid);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
