@@ -1,14 +1,19 @@
 import React, { useContext, useEffect } from "react";
 import { Container, Image, Nav, Navbar } from "react-bootstrap";
-import { GitHub } from "@material-ui/icons";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { AccountCircle, GitHub } from "@material-ui/icons";
 import firebase from "firebase";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+import { Chip } from "@material-ui/core";
 
 import logo from "../../assets/logo-t.png";
-import Bg from "../../components/Bg";
-import AnimatedCard from "../../components/AnimatedCard";
-import card from "../../assets/card.png";
 import { AuthContext } from "../../Auth";
+
+const members = ["google@gmail.com", "test@test.edu"];
+const tags = ["AI", "Community/Connectivity", "Healthcare"];
+const capacity = "4";
 
 const TeamPage = ({ history, location: { state }, match }) => {
   const authContext = useContext(AuthContext);
@@ -44,9 +49,24 @@ const TeamPage = ({ history, location: { state }, match }) => {
         <div className="row h-100 align-items-center">
           <div className="col">
             <div className="pb-3">
-              <h1>Team 1</h1>
+              <h1 className="display-1">Team 1</h1>
+              {tags.map((e, i) => (
+                <Chip key={`${e}-${i}`} className='mr-1' label={e} variant="outlined" />
+              ))}
             </div>
-            <div></div>
+            <div>
+              <h2>{`Members ${members.length}/${capacity}`}</h2>
+              {members.map((e, i) => (
+                <List key={`${e}-${i}`} dense>
+                  <ListItem>
+                    <ListItemIcon>
+                      <AccountCircle />
+                    </ListItemIcon>
+                    <ListItemText primary={e} />
+                  </ListItem>
+                </List>
+              ))}
+            </div>
           </div>
 
           <div className="col" style={{}}></div>
