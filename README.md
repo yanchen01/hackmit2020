@@ -1,5 +1,5 @@
-## [Lobby](https://lobby-hackmit.herokuapp.com/login)
+## [Lobby](https://lobby-hackmit.herokuapp.com/)
 
 A platform that facilitates finding your team for events ranging from education, entertainment, gaming tournaments, to hackathons, whether virtual or in-person
 
-* [Visit App](https://lobby-hackmit.herokuapp.com/login)
+* [Visit App](https://lobby-hackmit.herokuapp.com/)
