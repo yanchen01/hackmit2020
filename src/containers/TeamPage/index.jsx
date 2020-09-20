@@ -8,6 +8,9 @@ import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import { Chip } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Hamburger from "../Hamburger/hamburger";
+
 import {
   faDiscord,
   faFacebookMessenger,
@@ -15,19 +18,31 @@ import {
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import { useSnackbar } from "notistack";
+import { Link } from "react-router-dom";
 
-import logo from "../../assets/logo-t.png";
 import { AuthContext } from "../../Auth";
+import logo from "../../assets/logo-t.png";
 
-const members = ["google@gmail.com", "test@test.edu"];
-const tags = ["AI", "Community/Connectivity", "Healthcare"];
-const capacity = "4";
+// const members = ["google@gmail.com", "test@test.edu"];
+// const tags = ["AI", "Community/Connectivity", "Healthcare"];
+// const capacity = "4";
 
 const TeamPage = ({ history, location: { state }, match }) => {
   const authContext = useContext(AuthContext);
   const [submitted, setSubmitted] = useState(false);
   const [calendarValue, setCalendarValue] = useState(new Date());
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  const { team } = state;
+  const {
+    capacity,
+    name,
+    members,
+    teamTags,
+    eventId,
+    isFull,
+    applications,
+  } = team;
 
   useEffect(() => {
     let currentUser = firebase.auth().currentUser;
@@ -45,7 +60,7 @@ const TeamPage = ({ history, location: { state }, match }) => {
       <>
         <FontAwesomeIcon icon={faDiscord} size="lg" />
         <p className="mx-2">
-          <a href="#">discord</a>
+          <a href="https://www.discord.gg">discord</a>
         </p>
 
         <FontAwesomeIcon icon={faFacebookMessenger} size="lg" />
@@ -71,28 +86,27 @@ const TeamPage = ({ history, location: { state }, match }) => {
     }
   };
 
+  const renderRightAction = () => {
+    return (
+      <Navbar.Collapse className="justify-content-end">
+        <Nav>
+          <Link to={`/event/${eventId}/team`}>
+            <Button></Button>
+          </Link>
+        </Nav>
+      </Navbar.Collapse>
+    );
+  };
+
   return (
     <section>
-      <Navbar bg="light" varient="light">
-        <Navbar.Brand href="/">
-          <Image src={logo} className="logo" />
-          Lobby
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <Nav.Link href="https://github.com/yanchen01/hackmit2020">
-              <GitHub />
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <Hamburger renderRightAction={renderRightAction} />
       <Container className="my-5">
         <div className="row h-100 align-items-center">
           <div className="col">
             <div className="pb-3">
-              <h1 className="display-1">Team 1</h1>
-              {tags.map((e, i) => (
+              <h1 className="display-1">{name}</h1>
+              {teamTags.map((e, i) => (
                 <Chip
                   key={`${e}-${i}`}
                   className="mr-1"
@@ -117,7 +131,7 @@ const TeamPage = ({ history, location: { state }, match }) => {
             </div>
           </div>
 
-          <div className="col" style={{}}>
+          <div className="col px-5" style={{}}>
             <h1>Actions</h1>
             <p className="lead">Indicate your availability</p>
             <div>
