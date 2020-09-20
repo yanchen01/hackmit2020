@@ -21,7 +21,7 @@ const Join = (props) => {
 
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-    addEventMember(eventCode, memberID);
+    addEventMember(eventCode, authContext.currentUser);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
