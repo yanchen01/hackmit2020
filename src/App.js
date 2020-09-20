@@ -16,6 +16,7 @@ import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import Profile from './containers/Profile/Profile.jsx';
 import Settings from './containers/Settings/Settings.jsx';
+import Hamburger from './containers/Hamburger/hamburger';
 import NoMatchPage from './containers/NoMatchPage/NoMatchPage';
 
 /* Import Auth */
@@ -67,6 +68,7 @@ const App = () => {
 						<PrivateRoute exact path="/event" component={CreateEvent} />
 						{/*<Route component={NoMatchPage} />*/}
 						<Route exact path="/team" component={TeamPage} />
+            <Route exact path="/ham" component={Hamburger} />
 						<Switch>
 							<Route path="/event/:id/team" component={CreateTeam} />
 							<Route path="/event/:id" component={TeamList} />
