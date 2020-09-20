@@ -29,6 +29,7 @@ import { getEventById } from "../../backend/Events/Events";
 import { getAllTeamsInEvent } from "../../backend/Events/Teams/Teams";
 import logo from "../../assets/logo-t.png";
 import { AuthContext } from "../../Auth";
+import { FlightTakeoffRounded } from "@material-ui/icons";
 
 const TeamList = (props) => {
   const authContext = useContext(AuthContext);
@@ -88,7 +89,7 @@ const TeamList = (props) => {
           <p>
             <h3>Welcome to {props.eventName}!</h3>
           </p>
-          <p>{props.description}</p>
+          <p>{props.category}: {props.description}</p>
           <h3> Connect With Us: </h3>
           <ul>
             <li>
@@ -227,7 +228,8 @@ const TeamList = (props) => {
         show={modalShow}
         onHide={() => setModalShow(false)}
         eventName={event.name}
-        description={event.category}
+        category={event.category}
+        description={faker.lorem.words(13)}
         link={event.link}
         eventCode={event.eventCode}
         location={event.location}
