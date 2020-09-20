@@ -38,7 +38,7 @@ const Join = (props) => {
 
 	const onSubmit = (data) => {
 		const { eventCode, name } = data;
-		addEventMember(eventCode, firebase.auth().currentUser.uid);
+		addEventMember(eventCode.toLowerCase(), firebase.auth().currentUser.uid);
 	};
 
 	const { register, handleSubmit, watch, errors } = useForm();
