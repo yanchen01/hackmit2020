@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useContext, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -7,23 +6,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ThemeProvider } from 'styled-components';
 import { faTimes, faArrowRight, faPlusCircle, faHamburger, faCog, faBars } from '@fortawesome/free-solid-svg-icons';
-=======
-import React, { useContext, useEffect } from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import firebase from "firebase";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { ThemeProvider } from "styled-components";
-import {
-  faTimes,
-  faArrowRight,
-  faPlusCircle,
-  faHamburger,
-  faCog,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
->>>>>>> 02b2a4cfa663f4892a7e1891a88f12651be70521
 
 import { GlobalStyles, darkTheme } from './styles';
 
@@ -56,15 +38,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-library.add(
-  fab,
-  faTimes,
-  faArrowRight,
-  faPlusCircle,
-  faHamburger,
-  faCog,
-  faBars
-);
+library.add(fab, faTimes, faArrowRight, faPlusCircle, faHamburger, faCog, faBars);
 
 const App = () => {
 	const authContext = useContext(AuthContext);
