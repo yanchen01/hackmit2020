@@ -76,7 +76,9 @@ const Login = ({ history }) => {
             <div className="pb-3">
               <h1>Lobby</h1>
               <h2>Find teammates really fast.</h2>
-              <p className="lead">A HackMIT 2020 Project</p>
+              <p className="lead" style={{ color: "#E5588B" }}>
+                A HackMIT 2020 Project
+              </p>
             </div>
             <div>
               <StyledFirebaseAuth
