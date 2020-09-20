@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   InputGroup,
   Row,
@@ -21,7 +21,7 @@ const Join = (props) => {
 
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-    addEventMember(eventCode, memberID);
+    // addEventMember(eventCode, memberID);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
