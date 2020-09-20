@@ -87,6 +87,26 @@ const getEventsCreated = (uid) => {
 	return eventsList;
 };
 
-const getEventsJoined = (uid) => {};
+const getEventsJoined = (uid) => {
+	// make a query to events user created
+	const db = firebase.firestore();
+	let eventsData = [];
+
+	db.collection('users').doc(uid).get().then((res) => {
+		res.eventsJoined.forEach((eventID) => {
+			db
+				.collection('events')
+				.doc(eventID)
+				.get()
+				.then((result) => {
+					eventsData.push(result);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		});
+		return eventsData;
+	});
+};
 
 export { addUser, getEventsCreated, getEventsJoined, checkUserAlreadyExists };

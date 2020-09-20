@@ -1,16 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Container, Button, Row, Navbar, Image, Nav } from 'react-bootstrap';
+import { Container, Button, Row, Navbar, Image, Nav, Col } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Redirect, useHistory } from 'react-router-dom';
 import firebase from 'firebase';
-
-import { AuthContext } from '../../Auth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
-import logo from '../../assets/logo-t.png';
 
+// Drawer/HAMBURGER menu
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
 import { GitHub, Menu } from '@material-ui/icons';
 
+import logo from '../../assets/logo-t.png';
+import { AuthContext } from '../../Auth';
 import NonEventDrawer from '../../components/NonEventDrawer';
 import { getEventsCreated } from '../../backend/User/User';
 
