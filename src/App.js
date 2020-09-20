@@ -53,20 +53,20 @@ const App = () => {
         <Router>
           <div>
             <Switch>
-            <Route exact path="/login" component={Login} />
-            <PrivateRoute exact path="/" component={Home} />
-            <PrivateRoute exact path="/home" component={Home} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/join" component={Join} />
-            <PrivateRoute exact path="/event" component={CreateEvent} />
-            {/*<Route component={NoMatchPage} />*/}
-            <Switch>
-              <Route path="/event/:id/teamlist" component={TeamList} />
-              <Route path="/event/:id" component={CreateTeam} />
+              <Route exact path="/login" component={Login} />
+              <PrivateRoute exact path="/" component={Home} />
+              <PrivateRoute exact path="/home" component={Home} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/settings" component={Settings} />
+              <Route exact path="/signup" component={SignUp} />
+              <Route exact path="/join" component={Join} />
+              <PrivateRoute exact path="/event" component={CreateEvent} />
+              {/*<Route component={NoMatchPage} />*/}
+              <Switch>
+                <Route path="/event/:id/teamlist" component={TeamList} />
+                <Route path="/event/:id" component={CreateTeam} />
+              </Switch>
             </Switch>
-          </Switch>
           </div>
         </Router>
       </ThemeProvider>
