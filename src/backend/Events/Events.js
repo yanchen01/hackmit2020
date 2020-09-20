@@ -47,33 +47,41 @@ const editEvent = (eventID, updateObj) => {
     });
 };
 
+// join
 const addEventMember = (eventCode, memberUID) => {
-  // firebase
-  //   .firestore()
-  //   .collection("events")
-  //   .doc(eventID)
-  //   .update({
-  //     members: firebase.firestore.FieldValue.arrayUnion(memberUID),
-  //   })
-  //   .then((result) => {
-  //     console.log(result);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+  console.log(memberUID);
+  const eventQueried = [];
   firebase
     .firestore()
-    .collection("teams")
+    .collection("events")
     .where("eventCode", "==", eventCode)
     .get()
-    .update({
-      members: firebase.firestore.FieldValue.arrayUnion(memberUID),
-    })
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => {
-      return err;
+    .then((eventResult) => {
+      console.log(eventResult);
+      eventResult.forEach((res) => {
+        eventQueried.push(res.id);
+        console.log(res.data());
+      });
+
+      console.log("safety printing event queried ID", eventQueried[0]);
+
+      firebase
+        .firestore()
+        .collection("events")
+        .doc(eventQueried[0])
+        .update({
+          members: firebase.firestore.FieldValue.arrayUnion(memberUID),
+        });
+
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(memberUID)
+        .update({
+          eventsJoined: firebase.firestore.FieldValue.arrayUnion(
+            eventQueried[0]
+          ),
+        });
     });
 };
 
@@ -90,20 +98,5 @@ const getEventById = (eventID) => {
       console.log(err);
     });
 };
-// const addEventTeam = (event_id, teamUID) => {
-// 	firebase
-// 		.firestore()
-// 		.collection('events')
-// 		.doc(event_id)
-// 		.update({
-// 			teams: firebase.firestore.FieldValue.arrayUnion(teamUID)
-// 		})
-// 		.then((result) => {
-// 			console.log(result);
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// };
 
 export { addEvent, editEvent, addEventMember, getEventById };
