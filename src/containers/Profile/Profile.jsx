@@ -3,8 +3,6 @@ import { Navbar, Container, Row, Col, ListGroup, Button, Image } from 'react-boo
 import faker from 'faker';
 import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getEventsCreated } from '../../backend/User/User';
-import { getEventsCreated } from '../../backend/Teams/Teams';
 import firebase from 'firebase';
 import { AuthContext } from '../../Auth';
 import logo from '../../assets/logo-t.png';
