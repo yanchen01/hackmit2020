@@ -26,8 +26,14 @@ const addEvent = (
       teams: [],
     })
     .then((result) => {
-      console.log(result);
-      return result;
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUserUID)
+        .update({
+          eventsCreated: firebase.firestore.FieldValue.arrayUnion(eventID),
+        })
+        .then(() => {});
     })
     .catch((err) => {
       console.log(err);
@@ -50,30 +56,25 @@ const editEvent = (eventID, updateObj) => {
     });
 };
 
-const addEventMember = (eventCode, memberUID) => {
-  // firebase
-  //   .firestore()
-  //   .collection("events")
-  //   .doc(eventID)
-  //   .update({
-  //     members: firebase.firestore.FieldValue.arrayUnion(memberUID),
-  //   })
-  //   .then((result) => {
-  //     console.log(result);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  firebase
+const addEventMember = async (eventCode, memberUID) => {
+  const event = await firebase
     .firestore()
     .collection("teams")
     .where("eventCode", "==", eventCode)
-    .get()
+    .get();
+
+  event
     .update({
       members: firebase.firestore.FieldValue.arrayUnion(memberUID),
     })
     .then((result) => {
-      console.log(result);
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(memberUID)
+        .update({
+          eventsJoined: firebase.firestore.FieldValue.arrayUnion(event.id),
+        });
     })
     .catch((err) => {
       console.log(err);
