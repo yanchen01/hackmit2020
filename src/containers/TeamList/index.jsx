@@ -8,7 +8,7 @@ import {
   ListGroup,
   Button,
   Modal,
-  Nav,
+  Nav, Image,
 } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import faker from "faker";
@@ -23,8 +23,10 @@ import List from "@material-ui/core/List";
 import { GitHub } from "@material-ui/icons";
 
 import { getAllTeamsInEvent } from "../../backend/Events/Teams/Teams";
+import logo from "../../assets/logo-t.png";
 
 const TeamList = ({ location, history, match }) => {
+  const [currentTeams, setCurrentTeams] = useState([]);
   const {
     location: { state },
   } = history;
@@ -63,7 +65,7 @@ const TeamList = ({ location, history, match }) => {
 
   useEffect(() => {
     const teams = getAllTeamsInEvent(currentEventId);
-    console.log("Result: ", teams);
+    setCurrentTeams(teams);
   }, []);
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -169,7 +171,11 @@ const TeamList = ({ location, history, match }) => {
           className=""
           icon="hamburger"
         />
-        <Navbar.Brand className="mx-auto" onClick={() => setModalShow(true)}>
+        <Navbar.Brand href="/">
+          <Image src={logo} className="logo" />
+          Lobby
+        </Navbar.Brand>
+        <Navbar.Brand className="nav-m" onClick={() => setModalShow(true)}>
           HackMIT2020
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">

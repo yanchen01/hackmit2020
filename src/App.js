@@ -61,10 +61,10 @@ const App = () => {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/join" component={Join} />
             <PrivateRoute exact path="/event" component={CreateEvent} />
-            <Route component={NoMatchPage} />
+            {/*<Route component={NoMatchPage} />*/}
             <Switch>
               <Route path="/event/:id/teamlist" component={TeamList} />
-              <Route path="/event/:id" component={CreateTeam} />  
+              <Route path="/event/:id" component={CreateTeam} />
             </Switch>
           </Switch>
           </div>
