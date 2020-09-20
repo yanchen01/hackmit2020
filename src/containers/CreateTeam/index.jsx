@@ -5,6 +5,9 @@ import {
   Container,
   Button,
   ButtonToolbar,
+  Navbar,
+  Image,
+  Nav,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,6 +20,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { Redirect } from "react-router-dom";
+import { GitHub } from "@material-ui/icons";
 
 import { generateName } from "../../helpers/name";
 import { AuthContext } from "../../Auth";
@@ -28,6 +32,8 @@ import {
   addApplicationToTeam,
   updateTeam,
 } from "../../backend/Events/Teams/Teams";
+import logo from "../../assets/logo-t.png";
+import { checkUserAlreadyExists } from "../../backend/User/User";
 
 const TAGS = ["AI", "Community/Connectivity"];
 
@@ -90,7 +96,7 @@ const CreateTeam = (props) => {
   }, []);
 
   // temp
-  const MAX_MEMBERS = 4;
+  const MAX_MEMBERS = 100;
 
   const onDeleteTag = (tag) => {
     let currentTags = [...tags];
@@ -127,14 +133,22 @@ const CreateTeam = (props) => {
     }
   };
 
-  // // Get all users
-  // useEffect(() => {}, []);
-
   const onAddMember = (email) => {
     if (email.length > 0 && testEmailRegex.test(email)) {
-      const currentMembers = [...members];
-      currentMembers.push(email);
-      setMembers(currentMembers);
+      checkUserAlreadyExists(email)
+        .then((res) => {
+          if (res.length > 0) {
+            const currentMembers = [...members];
+            currentMembers.push(email);
+            setMembers(currentMembers);
+          } else {
+            enqueueSnackbar("User doesn't exist!", {
+              variant: "error",
+              onClick: () => closeSnackbar(),
+            });
+          }
+        })
+        .catch((err) => {});
     } else {
       enqueueSnackbar("Invalid email!", {
         variant: "error",
@@ -144,9 +158,23 @@ const CreateTeam = (props) => {
   };
 
   return (
-    <section className="create-event-page m-xl-5">
+    <section className="create-event-page">
       {unauthenticated}
-      <Container>
+      <Navbar bg="light" varient="light">
+        <Navbar.Brand href="/">
+          <Image src={logo} className="logo" />
+          Lobby
+        </Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Nav>
+            <Nav.Link href="https://github.com/yanchen01/hackmit2020">
+              <GitHub />
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Container className="my-5">
         <h1>Create Team</h1>
 
         <div className="mt-lg-3 mb-lg-3">
