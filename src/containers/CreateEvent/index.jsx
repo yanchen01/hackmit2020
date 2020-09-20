@@ -28,7 +28,7 @@ const MAX_MEMBERS_PER_TEAM_OPTIONS = [
   "Max required",
 ];
 
-const CreateEvent = (props) => {
+const CreateEvent = ({ history }) => {
   const [isMaxMembersPerTeamEnabled, setIsMaxMembersPerTeamEnabled] = useState(
     false
   );
@@ -71,9 +71,12 @@ const CreateEvent = (props) => {
       apiData.categorySingleSelection
     );
 
-    console.log();
-
-    props.history.push(`${props.history.location.pathname}/${apiData.eventID}`);
+    history.push({
+      pathname: `${history.location.pathname}/${apiData.eventID}/teamlist`,
+      state: {
+        eventId: apiData.eventID,
+      },
+    });
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
@@ -116,7 +119,7 @@ const CreateEvent = (props) => {
   return (
     <section className="create-event-page">
       <Navbar bg="light" varient="light">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <Image src={logo} className="logo" />
           Lobby
         </Navbar.Brand>
@@ -136,7 +139,7 @@ const CreateEvent = (props) => {
           <label>Enter event name</label>
           <InputGroup>
             <FormControl
-              name="eventCode"
+              name="name"
               type="text"
               ref={register({ min: 1, required: true, maxLength: 25 })}
               placeholder="hackmit2020"
@@ -154,7 +157,7 @@ const CreateEvent = (props) => {
           <InputGroup>
             <FormControl
               type="text"
-              name="name"
+              name="eventCode"
               ref={register({ min: 3, max: 50, required: true })}
               placeholder={eventCodeWatcher || "myevent"}
               aria-label="Username"

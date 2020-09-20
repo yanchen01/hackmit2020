@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Navbar,
   Container,
@@ -7,33 +8,33 @@ import {
   ListGroup,
   Button,
   Modal,
+  Nav,
+  Image,
 } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import faker from "faker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./index.css";
-import { getAllTeamsInEvent } from "../../backend/Events/Teams/Teams";
 
-import { AuthContext } from "../../Auth";
-import { Redirect } from "react-router-dom";
+import "./index.css";
 
 // Drawer/HAMBURGER menu
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
+import { GitHub } from "@material-ui/icons";
 
-const TeamList = () => {
-  const authContext = useContext(AuthContext);
-  let unauthenticated = null;
+import { getAllTeamsInEvent } from "../../backend/Events/Teams/Teams";
+import logo from "../../assets/logo-t.png";
 
-  useEffect(() => {
-    unauthenticated = authContext.currentUser ? null : <Redirect to="/login" />;
-    console.log("Auth: ", authContext.currentUser);
-  }, []);
+const TeamList = ({ location, history, match }) => {
+  const [currentTeams, setCurrentTeams] = useState([]);
+  const {
+    location: { state },
+  } = history;
+  const currentEventId = state.eventId;
 
   // Hamburger
   function EventModal(props) {
-    console.log(getAllTeamsInEvent("5bdd5ee5-5f7b-42af-a909-ec98d39becd7"));
     return (
       <Modal
         {...props}
@@ -46,7 +47,7 @@ const TeamList = () => {
             <h3>Welcome to {props.eventName}!</h3>
           </p>
           <p>{props.description}</p>
-          <h3> Conect With Us: </h3>
+          <h3> Connect With Us: </h3>
           <ul>
             <li>
               <a href={props.link}>{props.link}</a>
@@ -62,6 +63,11 @@ const TeamList = () => {
   }
 
   const [anchor, setAnchor] = useState(false);
+
+  useEffect(() => {
+    const teams = getAllTeamsInEvent(currentEventId);
+    setCurrentTeams(teams);
+  }, []);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -112,6 +118,9 @@ const TeamList = () => {
             <Col>
               <hr />
               <p>
+                <a href="/profile">Profile</a>
+              </p>
+              <p>
                 <a href="/settings">
                   <FontAwesomeIcon icon="cog" /> Settings
                 </a>
@@ -127,8 +136,6 @@ const TeamList = () => {
   );
 
   const [modalShow, setModalShow] = React.useState(false);
-
-  // ^^^^^^^^^^^^^
 
   const data = new Array(1000).fill().map((value, id) => ({
     id: id,
@@ -159,16 +166,26 @@ const TeamList = () => {
 
   return (
     <div>
-      {unauthenticated}
       <Navbar className="" expand="lg" variant="light" bg="light">
         <FontAwesomeIcon
           onClick={toggleDrawer("left", true)}
           className=""
           icon="hamburger"
         />
-        <Navbar.Brand className="mx-auto" onClick={() => setModalShow(true)}>
+        <Navbar.Brand href="/">
+          <Image src={logo} className="logo" />
+          Lobby
+        </Navbar.Brand>
+        <Navbar.Brand className="nav-m" onClick={() => setModalShow(true)}>
           HackMIT2020
         </Navbar.Brand>
+        <Navbar.Collapse className="justify-content-end">
+          <Nav>
+            <Nav.Link href={`/event/${currentEventId}`}>
+              <Button>Add Team</Button>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
       <EventModal
         show={modalShow}

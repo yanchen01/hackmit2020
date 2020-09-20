@@ -10,33 +10,24 @@ const addEvent = (
   link = "",
   category = ""
 ) => {
+  firebase.firestore().collection("events").doc(eventID).set({
+    name,
+    eventCode,
+    date,
+    location,
+    organizer: currentUserUID,
+    link,
+    category,
+    members: [],
+    teams: [],
+  });
+
   firebase
     .firestore()
-    .collection("events")
-    .doc(eventID)
-    .set({
-      name,
-      eventCode,
-      date,
-      location,
-      organizer: currentUserUID,
-      link,
-      category,
-      members: [],
-      teams: [],
-    })
-    .then((result) => {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(currentUserUID)
-        .update({
-          eventsCreated: firebase.firestore.FieldValue.arrayUnion(eventID),
-        })
-        .then(() => {});
-    })
-    .catch((err) => {
-      console.log(err);
+    .collection("users")
+    .doc(currentUserUID)
+    .update({
+      eventsCreated: firebase.firestore.FieldValue.arrayUnion(eventID),
     });
 };
 
@@ -56,28 +47,41 @@ const editEvent = (eventID, updateObj) => {
     });
 };
 
-const addEventMember = async (eventCode, memberUID) => {
-  const event = await firebase
+// join
+const addEventMember = (eventCode, memberUID) => {
+  console.log(memberUID);
+  const eventQueried = [];
+  firebase
     .firestore()
-    .collection("teams")
+    .collection("events")
     .where("eventCode", "==", eventCode)
-    .get();
+    .get()
+    .then((eventResult) => {
+      console.log(eventResult);
+      eventResult.forEach((res) => {
+        eventQueried.push(res.id);
+        console.log(res.data());
+      });
 
-  event
-    .update({
-      members: firebase.firestore.FieldValue.arrayUnion(memberUID),
-    })
-    .then((result) => {
+      console.log("safety printing event queried ID", eventQueried[0]);
+
+      firebase
+        .firestore()
+        .collection("events")
+        .doc(eventQueried[0])
+        .update({
+          members: firebase.firestore.FieldValue.arrayUnion(memberUID),
+        });
+
       firebase
         .firestore()
         .collection("users")
         .doc(memberUID)
         .update({
-          eventsJoined: firebase.firestore.FieldValue.arrayUnion(event.id),
+          eventsJoined: firebase.firestore.FieldValue.arrayUnion(
+            eventQueried[0]
+          ),
         });
-    })
-    .catch((err) => {
-      console.log(err);
     });
 };
 
@@ -94,20 +98,5 @@ const getEventById = (eventID) => {
       console.log(err);
     });
 };
-// const addEventTeam = (event_id, teamUID) => {
-// 	firebase
-// 		.firestore()
-// 		.collection('events')
-// 		.doc(event_id)
-// 		.update({
-// 			teams: firebase.firestore.FieldValue.arrayUnion(teamUID)
-// 		})
-// 		.then((result) => {
-// 			console.log(result);
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// };
 
 export { addEvent, editEvent, addEventMember, getEventById };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   InputGroup,
   Row,
@@ -15,13 +15,13 @@ import { AuthContext } from "../../Auth";
 
 import { Redirect } from "react-router-dom";
 
-const Join = (props) => {
+const Join = () => {
   const authContext = useContext(AuthContext);
   let unauthenticated = null;
 
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-    addEventMember(eventCode, authContext.currentUser);
+    addEventMember(eventCode, firebase.auth().currentUser.uid); //authContext.currentUser.uid);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
