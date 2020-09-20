@@ -17,6 +17,7 @@ import firebase from "firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
+import { Redirect } from "react-router-dom";
 
 import { AuthContext } from "../../Auth";
 import logo from "../../assets/logo-t.png";
@@ -153,7 +154,7 @@ const Profile = () => {
             />
           </Row>
           <Row className="justify-content-md-center mt-3 post">
-            <h1>{authContext?.currentUser?.displayName ?? ""}</h1>
+            <h1>{authContext?.currentUser?.displayName ?? <Redirect to="/home" />}</h1>
           </Row>
 
           {isEditingDescription ? (
