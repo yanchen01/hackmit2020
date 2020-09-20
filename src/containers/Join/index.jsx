@@ -8,20 +8,26 @@ import {
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import firebase from "firebase";
+
 import "./style.css";
-import { addEventMember } from "../../backend/Events/Events";
-
-import { AuthContext } from "../../Auth";
-
 import { Redirect } from "react-router-dom";
+
+import { addEventMember } from "../../backend/Events/Events";
+import { AuthContext } from "../../Auth";
 
 const Join = (props) => {
   const authContext = useContext(AuthContext);
   let unauthenticated = null;
 
+  useEffect(() => {
+
+  }, []);
+
   const onSubmit = (data) => {
     const { eventCode, name } = data;
-    // addEventMember(eventCode, memberID);
+    let currentUser = firebase.auth().currentUser;
+    const { uid } = currentUser;
+    addEventMember(eventCode, uid);
   };
 
   const { register, handleSubmit, watch, errors } = useForm();
@@ -42,7 +48,7 @@ const Join = (props) => {
           <InputGroup>
             <FormControl
               name="eventCode"
-              ref={register({ min: 1, required: true, maxLength: 25 })}
+              ref={register({ min: 1, required: true, maxLength: 50 })}
               placeholder="hackmit2020"
               aria-label="eventcode"
               aria-describedby="basic-addon1"
