@@ -29,6 +29,7 @@ import { getEventById } from "../../backend/Events/Events";
 import { getAllTeamsInEvent } from "../../backend/Events/Teams/Teams";
 import logo from "../../assets/logo-t.png";
 import { AuthContext } from "../../Auth";
+import { FlightTakeoffRounded } from "@material-ui/icons";
 
 const TeamList = (props) => {
   const authContext = useContext(AuthContext);
@@ -88,7 +89,8 @@ const TeamList = (props) => {
           <p>
             <h3>Welcome to {props.eventName}!</h3>
           </p>
-          <p>{props.description}</p>
+          <p>Category: {props.category}</p>
+          <p>Description: {props.description}</p>
           <h3> Connect With Us: </h3>
           <ul>
             <li>
@@ -205,30 +207,30 @@ const TeamList = (props) => {
 
   return (
     <div>
-      <Navbar className="" expand="lg" variant="light" bg="light">
-        <FontAwesomeIcon
+      
+      <Navbar className="d-flex justify-content-between" expand="lg" variant="light" bg="light">
+            <FontAwesomeIcon
             onClick={toggleDrawer("left", true)}
             className=""
             icon="bars"
             />
-        <Navbar.Brand className="mx-auto" onClick={() => setModalShow(true)}>
-          <p className="lead" style={{ marginTop: 13 }}>
+            <Navbar.Brand className="p-2 col-example text-left" onClick={() => setModalShow(true)}>
+              <h3><p className="" style={{ marginTop: 13 }}>
             {event.name}
-          </p>
+          </p></h3>
         </Navbar.Brand>
-        <Navbar.Collapse>
-          <Nav>
+          <Nav className="p-2 col-example text-left">
             <Link to={`/event/${currentEventId}/team`}>
               <Button>Add Team</Button>
             </Link>
           </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+        </Navbar>
       <EventModal
         show={modalShow}
         onHide={() => setModalShow(false)}
         eventName={event.name}
-        description={event.category}
+        category={event.category}
+        description={faker.lorem.words(16)}
         link={event.link}
         eventCode={event.eventCode}
         location={event.location}
@@ -236,7 +238,7 @@ const TeamList = (props) => {
         eventEnd={event.eventEnd}
       />
       <br />
-      <h3 className="text-center">Find your Team:</h3>
+      
 
       <React.Fragment key="left">
         <Drawer
