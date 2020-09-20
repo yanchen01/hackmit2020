@@ -3,6 +3,7 @@ import { Container, Button, Row, Navbar, Image, Nav, Col } from 'react-bootstrap
 import 'react-datepicker/dist/react-datepicker.css';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
+import Hamburger from '../Hamburger/hamburger'
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -42,19 +43,7 @@ const Home = () => {
 
 	return (
 		<section className="create-event-page">
-			<Navbar bg="light" varient="light">
-				<Navbar.Brand href="/">
-					<Image src={logo} className="logo" />
-					Lobby
-				</Navbar.Brand>
-				<Navbar.Collapse className="justify-content-end">
-					<Nav>
-						<Nav.Link href="https://github.com/yanchen01/hackmit2020">
-							<GitHub />
-						</Nav.Link>
-					</Nav>
-				</Navbar.Collapse>
-			</Navbar>
+			<Hamburger />
 			<Container className="my-5">
 				<h1>
 					{user && `Welcome ${user}, `}

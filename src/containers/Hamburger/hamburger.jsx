@@ -3,6 +3,7 @@ import { Container, Button, Row, Navbar, Image, Nav, Col, ListGroup } from 'reac
 import 'react-datepicker/dist/react-datepicker.css';
 import List from '@material-ui/core/List';
 import Drawer from '@material-ui/core/Drawer';
+import { Redirect, Link } from 'react-router-dom';
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -58,9 +59,8 @@ const Hamburger = () => {
           <Row>
             <Col>
               <hr />
-              <p>
-                <a href="/settings"> Settings</a>
-              </p>
+              <p><Link to="/profile">Profile</Link></p>
+              <p><a href="/settings">Settings</a></p>
               <p>Sign Out</p>
             </Col>
           </Row>
@@ -73,33 +73,29 @@ const Hamburger = () => {
 
     return(
         <div>
-        <Navbar className="" expand="lg" variant="light" bg="light">
-        <FontAwesomeIcon
-          onClick={toggleDrawer("left", true)}
-          className=""
-          icon="bars"
-        />
-        <Navbar.Brand href="/" className="mx-auto">
-          <Image src={logo} className="logo" />
-          Lobby
-        </Navbar.Brand>
-        <Navbar.Collapse className="justify-content-end">
-			<Nav>
-                <Nav.Link href="https://github.com/yanchen01/hackmit2020">
-                <GitHub />
-                </Nav.Link>
-		    </Nav>
-		</Navbar.Collapse>
-      </Navbar>
-      <React.Fragment key="left">
-          <Drawer
-            anchor="left"
-            open={anchor}
-            onClose={toggleDrawer("left", false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
+            <Navbar className="" expand="lg" variant="light" bg="light">
+            <FontAwesomeIcon
+            onClick={toggleDrawer("left", true)}
+            className=""
+            icon="bars"
+            />
+            <Navbar.Brand href="/" className="mx-auto">
+            <Image src={logo} className="logo" />
+            Lobby
+            </Navbar.Brand>
+            <Nav.Link href="https://github.com/yanchen01/hackmit2020">
+							<GitHub />
+						</Nav.Link>
+        </Navbar>
+        <React.Fragment key="left">
+            <Drawer
+                anchor="left"
+                open={anchor}
+                onClose={toggleDrawer("left", false)}
+            >
+                {list(anchor)}
+            </Drawer>
+            </React.Fragment>
         </div>
     );
 }
