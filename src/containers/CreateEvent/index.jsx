@@ -45,7 +45,7 @@ const CreateEvent = ({ history }) => {
     const { eventCode, name, maxTeams, maxUsersPerTeam, link } = data;
     const apiData = {
       name,
-      eventCode,
+      eventCode: eventCode.toLowerCase(),
       eventID: uuidv4(),
       maxTeams,
       maxUsersPerTeam,

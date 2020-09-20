@@ -4,6 +4,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import List from '@material-ui/core/List';
 import Drawer from '@material-ui/core/Drawer';
 import { Redirect, Link } from 'react-router-dom';
+import firebase from "firebase";
+
+// Dynamic Events
+import { getEventsCreated, getEventsJoined } from "../../backend/User/User";
+import { AuthContext } from "../../Auth";
 
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
@@ -13,6 +18,24 @@ import logo from '../../assets/logo-t.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Hamburger = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const authContext = useContext(AuthContext);
+    const [events, setEvents] = useState([]);
+    const [currentUser, setCurrentUser] = useState();
+
+    const onLogout = () => {
+		firebase
+			.auth()
+			.signOut()
+			.then((res) => {
+				console.log('signed out', res);
+				authContext.setCurrentUser(null);
+			})
+			.catch((err) => {
+				console.log('error signing out', err);
+			});
+	};
+
 
     // Hamburger
   const [anchor, setAnchor] = useState(false);
@@ -45,7 +68,7 @@ const Hamburger = () => {
               </Navbar.Brand>
             </Col>
           </Row>
-          <Row>
+           {/*<Row>
             <Col>
               <hr />
               <h3>Current Events:</h3>
@@ -55,13 +78,13 @@ const Hamburger = () => {
                 <li>FizzBuzz Showdown</li>
               </ul>
             </Col>
-          </Row>
+          </Row>*/}
           <Row>
             <Col>
               <hr />
               <p><Link to="/profile">Profile</Link></p>
-              <p><a href="/settings">Settings</a></p>
-              <p>Sign Out</p>
+              <p><Link to="/settings">Settings</Link></p>
+              <p><Link to="" onClick={onLogout}>Sign out</Link></p>
             </Col>
           </Row>
         </Container>
