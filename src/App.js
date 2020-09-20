@@ -31,6 +31,7 @@ import CreateEvent from "./containers/CreateEvent";
 import CreateTeam from "./containers/CreateTeam";
 import Join from "./containers/Join";
 import TeamList from "./containers/TeamList";
+import TeamPage from "./containers/TeamPage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD-w8z8ollWZttoETyFL7Zkk-FVnhZoKdw",
@@ -62,6 +63,7 @@ const App = () => {
               <Route exact path="/join" component={Join} />
               <PrivateRoute exact path="/event" component={CreateEvent} />
               {/*<Route component={NoMatchPage} />*/}
+              <Route exact path="/team" component={TeamPage} />
               <Switch>
                 <Route path="/event/:id/teamlist" component={TeamList} />
                 <Route path="/event/:id" component={CreateTeam} />
