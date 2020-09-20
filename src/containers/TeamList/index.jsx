@@ -205,25 +205,24 @@ const TeamList = (props) => {
 
   return (
     <div>
-      <Navbar className="" expand="lg" variant="light" bg="light">
-        <FontAwesomeIcon
+      
+      <Navbar className="d-flex justify-content-between" expand="lg" variant="light" bg="light">
+            <FontAwesomeIcon
             onClick={toggleDrawer("left", true)}
             className=""
             icon="bars"
             />
-        <Navbar.Brand className="mx-auto" onClick={() => setModalShow(true)}>
-          <p className="lead" style={{ marginTop: 13 }}>
+            <Navbar.Brand className="p-2 col-example text-left" onClick={() => setModalShow(true)}>
+              <h3><p className="" style={{ marginTop: 13 }}>
             {event.name}
-          </p>
+          </p></h3>
         </Navbar.Brand>
-        <Navbar.Collapse>
-          <Nav>
+          <Nav className="p-2 col-example text-left">
             <Link to={`/event/${currentEventId}/team`}>
               <Button>Add Team</Button>
             </Link>
           </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+        </Navbar>
       <EventModal
         show={modalShow}
         onHide={() => setModalShow(false)}
