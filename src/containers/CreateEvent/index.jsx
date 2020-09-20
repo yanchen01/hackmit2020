@@ -45,7 +45,7 @@ const CreateEvent = ({ history }) => {
     const { eventCode, name, maxTeams, maxUsersPerTeam, link } = data;
     const apiData = {
       name,
-      eventCode,
+      eventCode: eventCode.toLowerCase(),
       eventID: uuidv4(),
       maxTeams,
       maxUsersPerTeam,
@@ -180,7 +180,7 @@ const CreateEvent = ({ history }) => {
               id="basic-typeahead-single"
               labelKey="name"
               onChange={setCategorySingleSelection}
-              options={["Hackathon"]}
+              options={["Hackathon", "Tournamnet", "Breakout Group", "Final Project for CS577"]}
               placeholder="Choose a category..."
               selected={categorySingleSelection}
             />

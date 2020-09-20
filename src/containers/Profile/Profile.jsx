@@ -9,6 +9,7 @@ import {
   Image,
   InputGroup,
   FormControl,
+  Spinner,
 } from "react-bootstrap";
 import faker from "faker";
 import "./index.css";
@@ -16,38 +17,71 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "firebase";
 import List from "@material-ui/core/List";
 import { Redirect } from "react-router-dom";
-import Hamburger from '../Hamburger/hamburger'
+import ListItem from "@material-ui/core/ListItem";
+import { ArrowRight, ChevronRight, Event } from "@material-ui/icons";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import IconButton from "@material-ui/core/IconButton";
 
+import Hamburger from "../Hamburger/hamburger";
 import { AuthContext } from "../../Auth";
 import logo from "../../assets/logo-t.png";
 import { getEventsCreated, getEventsJoined } from "../../backend/User/User";
 
 // Drawer/HAMBURGER menu
 
-const Profile = () => {
+const Profile = ({ history, location }) => {
   const authContext = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
   const [isEditingDescription, setIsEditingDescription] = useState(false);
 
   useEffect(() => {
     let currentUser = firebase.auth().currentUser;
 
     if (currentUser) {
+      setLoading(true);
       authContext.setCurrentUser(currentUser);
-      const eventsCreated = getEventsCreated(authContext.currentUser.uid);
-      const eventsJoined = getEventsJoined(authContext.currentUser.uid);
+      const uid = currentUser.uid;
 
-      if (eventsCreated) {
-        const currentEvents = [...events, ...eventsCreated];
-        setEvents(currentEvents);
-      }
+      const db = firebase.firestore();
 
-      if (eventsJoined) {
-        const currentEvents = [...events, ...eventsJoined];
-        setEvents(currentEvents);
-      }
+      db.collection("users")
+        .where("id", "==", uid)
+        .get()
+        .then((querySnapshot) => {
+          const userDoc = [];
+          const eventsList = [];
+          querySnapshot.forEach((res) => {
+            userDoc.push(res.data());
+          });
+          const eventRef = db.collection("events");
+
+          userDoc[0].eventsCreated.forEach((eventID) => {
+            eventRef
+              .doc(eventID)
+              .get()
+              .then((res) => {
+                eventsList.push({ ...res.data(), owner: true });
+                setEvents(eventsList);
+                setLoading(false);
+              })
+              .catch((err) => {
+                setLoading(false);
+                console.log(err);
+              });
+          });
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, []);
 
@@ -59,7 +93,42 @@ const Profile = () => {
     return (
       <div className="mt-5">
         <h4>Events</h4>
-        <List component="nav" aria-labelledby="nested-list-subheader"></List>
+        <List component="nav" aria-labelledby="nested-list-subheader">
+          {!loading && events ? (
+            events.map((el, idx) => {
+              const {
+                category,
+                date,
+                eventCode,
+                link,
+                location,
+                members,
+                name,
+                teams,
+              } = el;
+              return (
+                <ListItem onClick={() => {
+
+                }} key={`${el}-${idx}`} button>
+                  <ListItemIcon>
+                    <Event />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={name}
+                    secondary={el.owner ? "Event Owner" : undefined}
+                  />
+                  <ListItemIcon>
+                    <ChevronRight />
+                  </ListItemIcon>
+                </ListItem>
+              );
+            })
+          ) : (
+            <div className="justify-content-center">
+              <Spinner animation="border" />
+            </div>
+          )}
+        </List>
       </div>
     );
   };
@@ -68,7 +137,6 @@ const Profile = () => {
     <div>
       <Hamburger />
       <Container className="w-100 h-100">
-
         <div className="center">
           <Row className="justify-content-md-center mt-3 post">
             <Image

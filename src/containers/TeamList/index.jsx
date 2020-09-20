@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Navbar,
   Container,
@@ -23,15 +23,18 @@ import "./index.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-import { GitHub } from "@material-ui/icons";
 import { Chip } from "@material-ui/core";
+import { getEventById } from "../../backend/Events/Events";
 
 import { getAllTeamsInEvent } from "../../backend/Events/Teams/Teams";
 import logo from "../../assets/logo-t.png";
+import { AuthContext } from "../../Auth";
 
 const TeamList = (props) => {
+  const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [teams, setTeams] = useState([]);
+  const [event, setEvents] = useState([]);
   const {
     location: { state },
   } = props.history;
@@ -56,7 +59,21 @@ const TeamList = (props) => {
         console.log(err);
       });
     setTeams(teamsList);
+
+    firebase
+		.firestore()
+		.collection('events')
+		.doc(currentEventId)
+		.get()
+		.then((response) => {
+			setEvents(response.data());
+		})
+		.catch((err) => {
+			console.log(err);
+    });
+    
   }, []);
+  console.log("E", event);
 
   // Hamburger
   function EventModal(props) {
@@ -79,7 +96,6 @@ const TeamList = (props) => {
             </li>
             <li>Event Code: {props.eventCode}</li>
             <li>Location: {props.location}</li>
-            <li>Category: {props.category}</li>
           </ul>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Body>
@@ -100,14 +116,18 @@ const TeamList = (props) => {
     setAnchor(open);
   };
 
-  const classes = makeStyles({
-    list: {
-      width: 550,
-    },
-    fullList: {
-      width: "auto",
-    },
-  });
+  const onLogout = () => {
+		firebase
+			.auth()
+			.signOut()
+			.then((res) => {
+				console.log('signed out', res);
+				authContext.setCurrentUser(null);
+			})
+			.catch((err) => {
+				console.log('error signing out', err);
+			});
+	};
 
   const list = (anchor) => (
     <div
@@ -120,10 +140,13 @@ const TeamList = (props) => {
         <Container fluid>
           <Row>
             <Col>
-              <h2 className="text-center">Lobby</h2>
+              <Navbar.Brand id="logo" href="/" className="mx-auto">
+                <Image src={logo} className="logo" />
+                Lobby
+              </Navbar.Brand>
             </Col>
           </Row>
-          <Row>
+           {/*<Row>
             <Col>
               <hr />
               <h3>Current Events:</h3>
@@ -133,21 +156,13 @@ const TeamList = (props) => {
                 <li>FizzBuzz Showdown</li>
               </ul>
             </Col>
-          </Row>
+          </Row>*/}
           <Row>
             <Col>
               <hr />
-              <p>
-                <a href="/profile">Profile</a>
-              </p>
-              <p>
-                <a href="/settings">
-                  <FontAwesomeIcon icon="cog" /> Settings
-                </a>
-              </p>
-              <p>
-                <FontAwesomeIcon icon="sign-out-alt" /> Sign Out
-              </p>
+              <p><Link to="/profile">Profile</Link></p>
+              <p><Link to="/settings">Settings</Link></p>
+              <p><Link to="" onClick={onLogout}>Sign out</Link></p>
             </Col>
           </Row>
         </Container>
@@ -192,20 +207,16 @@ const TeamList = (props) => {
     <div>
       <Navbar className="" expand="lg" variant="light" bg="light">
         <FontAwesomeIcon
-          onClick={toggleDrawer("left", true)}
-          className=""
-          icon="hamburger"
-        />
-        <Navbar.Brand href="/">
-          <Image src={logo} className="logo" />
-          Lobby
-        </Navbar.Brand>
-        <Navbar.Brand className="" onClick={() => setModalShow(true)}>
+            onClick={toggleDrawer("left", true)}
+            className=""
+            icon="bars"
+            />
+        <Navbar.Brand className="mx-auto" onClick={() => setModalShow(true)}>
           <p className="lead" style={{ marginTop: 13 }}>
-            HackMIT2020
+            {event.name}
           </p>
         </Navbar.Brand>
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse>
           <Nav>
             <Link to={`/event/${currentEventId}/team`}>
               <Button>Add Team</Button>
@@ -216,14 +227,13 @@ const TeamList = (props) => {
       <EventModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        eventName="HackMIT 2020"
-        description={faker.lorem.words(20)}
-        link="https://hackmit.org/"
-        eventCode="HackWithUs"
-        location="The World Wide Web"
-        category="GeekSquad"
-        eventStart="9/18"
-        eventEnd="9/21"
+        eventName={event.name}
+        description={event.category}
+        link={event.link}
+        eventCode={event.eventCode}
+        location={event.location}
+        eventStart={event.eventStart}
+        eventEnd={event.eventEnd}
       />
       <br />
       <h3 className="text-center">Find your Team:</h3>
