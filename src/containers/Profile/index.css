@@ -29,3 +29,7 @@ html, body, #app, #app>div {
     max-width: 400px;
     max-height: 400px;
 }
+
+#logo {
+  color: black;
+}

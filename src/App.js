@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useContext, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -12,6 +13,16 @@ import {
   faHamburger,
   faCog,
 } from "@fortawesome/free-solid-svg-icons";
+=======
+import React, { useContext, useEffect } from 'react';
+import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import firebase from 'firebase';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { ThemeProvider } from 'styled-components';
+import { faTimes, faArrowRight, faPlusCircle, faHamburger, faCog, faBars } from '@fortawesome/free-solid-svg-icons';
+>>>>>>> Stashed changes
 
 import { GlobalStyles, darkTheme } from "./styles";
 
@@ -44,7 +55,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-library.add(fab, faTimes, faArrowRight, faPlusCircle, faHamburger, faCog);
+library.add(fab, faTimes, faArrowRight, faPlusCircle, faHamburger, faCog, faBars);
 
 const App = () => {
   const authContext = useContext(AuthContext);
